@@ -1,0 +1,58 @@
+<Solution>
+  <PropertyGroup Name="HappyT1" Version="2.3.2.3" Type="CocosStudio" />
+  <SolutionFolder>
+    <Group ctype="ResourceGroup">
+      <RootFolder Name=".">
+        <Folder Name="scene">
+          <Project Name="MainScene.csd" Type="Scene" />
+          <Project Name="Launcher.csd" Type="Scene" />
+          <Project Name="CenterNode.csd" Type="Node" />
+          <Project Name="LinePieceA.csd" Type="Skeleton" />
+          <Project Name="TBlock.csd" Type="Skeleton" />
+          <Project Name="Square.csd" Type="Skeleton" />
+          <Project Name="LBlock.csd" Type="Skeleton" />
+          <Project Name="ReverseLBlock.csd" Type="Skeleton" />
+          <Project Name="Squiggly.csd" Type="Skeleton" />
+          <Project Name="ReverseSquiggly.csd" Type="Skeleton" />
+          <Project Name="PlayGame.csd" Type="Scene" />
+          <Project Name="PlayTetrisLayer.csd" Type="Layer" />
+          <Project Name="RedBlock.csd" Type="Node" />
+          <Project Name="GreenBlock.csd" Type="Node" />
+          <Project Name="BlueBlock.csd" Type="Node" />
+          <Project Name="OBlock.csd" Type="Node" />
+          <Project Name="PBlock.csd" Type="Node" />
+          <Project Name="YBlock.csd" Type="Node" />
+          <Project Name="CBlock.csd" Type="Node" />
+          <Project Name="NextFallBlockLayer.csd" Type="Layer" />
+          <Project Name="GameScoreLayer.csd" Type="Layer" />
+        </Folder>
+        <Folder Name="img">
+          <Image Name="HelloWorld.png" />
+          <Image Name="pic.png" />
+          <Image Name="red_t.png" />
+          <Image Name="y_t.png" />
+          <Image Name="black_t.png" />
+          <Image Name="blue_t.png" />
+          <Image Name="c_t.png" />
+          <Image Name="g_t.png" />
+          <Image Name="gay_t.png" />
+          <Image Name="o_t.png" />
+          <Image Name="p_t.png" />
+          <Image Name="w_t.png" />
+          <Image Name="red_t_1.png" />
+          <Image Name="blue_t_1.png" />
+          <Image Name="c_t_1.png" />
+          <Image Name="g_t_1.png" />
+          <Image Name="o_t_1.png" />
+          <Image Name="p_t_1.png" />
+          <Image Name="y_t_1.png" />
+          <PlistInfo Name="AllImage.csi" Type="Plist" />
+          <Image Name="bk1.png" />
+        </Folder>
+        <Folder Name="font">
+          <Fnt Name="font.fnt" />
+        </Folder>
+      </RootFolder>
+    </Group>
+  </SolutionFolder>
+</Solution>
