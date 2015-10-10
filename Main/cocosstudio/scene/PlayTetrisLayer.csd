@@ -6,7 +6,7 @@
       <ObjectData Name="Layer" Tag="5" ctype="GameLayerObjectData">
         <Size X="640.0000" Y="960.0000" />
         <Children>
-          <AbstractNodeData Name="Root" ActionTag="225417804" Tag="17" IconVisible="True" LeftMargin="112.0000" RightMargin="528.0000" TopMargin="802.0000" BottomMargin="158.0000" ctype="SingleNodeObjectData">
+          <AbstractNodeData Name="Root" ActionTag="225417804" Tag="17" IconVisible="True" LeftMargin="122.0000" RightMargin="518.0000" TopMargin="872.0000" BottomMargin="88.0000" ctype="SingleNodeObjectData">
             <Size X="0.0000" Y="0.0000" />
             <Children>
               <AbstractNodeData Name="BK" ActionTag="1104654831" Tag="11" IconVisible="False" HorizontalEdge="LeftEdge" VerticalEdge="BottomEdge" RightMargin="-32.0000" TopMargin="-32.0000" ctype="SpriteObjectData">
@@ -99,10 +99,10 @@
               </AbstractNodeData>
             </Children>
             <AnchorPoint />
-            <Position X="112.0000" Y="158.0000" />
+            <Position X="122.0000" Y="88.0000" />
             <Scale ScaleX="1.0000" ScaleY="1.0000" />
             <CColor A="255" R="255" G="255" B="255" />
-            <PrePosition X="0.1750" Y="0.1646" />
+            <PrePosition X="0.1906" Y="0.0917" />
             <PreSize X="0.0000" Y="0.0000" />
           </AbstractNodeData>
         </Children>

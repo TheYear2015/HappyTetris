@@ -25,16 +25,5 @@
         <EnableHTML5Advanced Value="False" />
       </Value>
     </Item>
-    <Item Key="TabsParamsKey">
-      <Value ctype="TabsInfo">
-        <OpenedDocuments>
-          <FilePathData Path="scene/GameScoreLayer.csd" />
-          <FilePathData Path="scene/PlayTetrisLayer.csd" />
-          <FilePathData Path="scene/NextFallBlockLayer.csd" />
-          <FilePathData Path="scene/Squiggly.csd" />
-        </OpenedDocuments>
-        <ActiveDocument Path="scene/Squiggly.csd" />
-      </Value>
-    </Item>
   </Properties>
 </UserData>
