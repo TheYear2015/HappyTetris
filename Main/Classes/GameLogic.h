@@ -87,6 +87,7 @@ private:
 enum class BlockPlayStatus
 {
 	Op = 1,//操作中
+	BlockFallEnd,//下落结束
 	BlockClean,//消除中
 	BlockFallFill,//自动填充中
 	BeginOp,//出新块，开始操作
@@ -158,6 +159,8 @@ public:
 
 	//方块下落的帧，500ms一帧，进行方块下落的计算，新的方块的产生
 	void FallFrame();
+
+	void ProcBlockFallEnd();
 
 	void SetObserver(PlayTetrisObserver* observer);
 
@@ -243,6 +246,9 @@ private:
 	int m_fallBlockCount = 0;
 
 	float m_fallDetal = 0.5f;
+
+	//下落到底后的固定时间
+	const float m_fallEndDetal = 0.3f;
 
 	//下落速度等级区间
 	std::pair<int, int> m_fallSpeedLevelRang = { 1, 15 };

@@ -461,34 +461,8 @@ void PlayTetris::FallFrame()
 		//下落，可操作
 		if (IsFallOnEnd())
 		{
-			//
-			FallEnd();
-
-			//开始进计算，销毁
-
-			//判断是否需要消除
-			auto fullLines = m_data.GetFillFullLines();
-			if (fullLines[0] != -1)
-			{
-				//需要消除
-				m_fallBlockStatus = BlockPlayStatus::BlockClean;
-				//消除行
-				for (auto line : fullLines)
-				{
-					if (line >= 0)
-					{
-						m_data.DelLine(line);
-						++m_cleanLinesCount;
-					}
-				}
-				if (m_observer)
-					m_observer->OnlineClean(fullLines);
-
-			}
-			else
-			{
-				m_fallBlockStatus = BlockPlayStatus::BeginOp;
-			}
+			m_fallBlockStatus = BlockPlayStatus::BlockFallEnd;
+			break;
 		}
 		else
 		{
@@ -558,10 +532,21 @@ void PlayTetris::Frame(float delta)
 {
 	//下落控制
 	m_fallRunTime += delta;
-	if (m_fallRunTime >= m_fallDetal)
+	if (m_fallBlockStatus == BlockPlayStatus::BlockFallEnd)
 	{
-		FallFrame();
-		m_fallRunTime -= m_fallDetal;
+		if (m_fallRunTime >= m_fallEndDetal)
+		{
+			ProcBlockFallEnd();
+			m_fallRunTime -= m_fallEndDetal;
+		}
+	}
+	else
+	{
+		if (m_fallRunTime >= m_fallDetal)
+		{
+			FallFrame();
+			m_fallRunTime -= m_fallDetal;
+		}
 	}
 }
 
@@ -704,6 +689,38 @@ void PlayTetris::SetFallLevelRang(int min, int max)
 	m_fallSpeedLevelRang.first = min;
 	m_fallSpeedLevelRang.second = max;
 
+}
+
+void PlayTetris::ProcBlockFallEnd()
+{
+	//
+	FallEnd();
+
+	//开始进计算，销毁
+
+	//判断是否需要消除
+	auto fullLines = m_data.GetFillFullLines();
+	if (fullLines[0] != -1)
+	{
+		//需要消除
+		m_fallBlockStatus = BlockPlayStatus::BlockClean;
+		//消除行
+		for (auto line : fullLines)
+		{
+			if (line >= 0)
+			{
+				m_data.DelLine(line);
+				++m_cleanLinesCount;
+			}
+		}
+		if (m_observer)
+			m_observer->OnlineClean(fullLines);
+
+	}
+	else
+	{
+		m_fallBlockStatus = BlockPlayStatus::BeginOp;
+	}
 }
 
 
