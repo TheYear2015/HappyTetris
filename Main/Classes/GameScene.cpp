@@ -28,6 +28,8 @@ cocos2d::Sprite* CreatBlockSprite(BlockType block)
 	return cocos2d::Sprite::create(blockTag[index]);
 }
 
+#define BLOCK_SIZE 32
+#define BLOCK_CENTER 16
 
 PlayTetrisLayer::PlayTetrisLayer()
 {
@@ -238,9 +240,9 @@ void PlayTetrisLayer::OnBlocksFallFill(const std::vector<std::pair<std::pair<int
 			m_blockSpriteMap[p.second.second][p.second.first] = sp;
 
 			//move to
-			auto actionTo = cocos2d::MoveTo::create(0.1f, cocos2d::Vec2(p.second.first * 32 + 16, p.second.second * 32 + 16));
+			auto actionTo = cocos2d::MoveTo::create(0.1f, cocos2d::Vec2(p.second.first * BLOCK_SIZE + BLOCK_CENTER, p.second.second * BLOCK_SIZE + BLOCK_CENTER));
 			sp[0]->runAction(actionTo);
-			actionTo = cocos2d::MoveTo::create(0.1f, cocos2d::Vec2(p.second.first * 32 + 16 + 9, p.second.second * 32 + 16 - 3 ));
+			actionTo = cocos2d::MoveTo::create(0.1f, cocos2d::Vec2(p.second.first * BLOCK_SIZE + BLOCK_CENTER + 9, p.second.second * BLOCK_SIZE + BLOCK_CENTER - 3));
 			sp[1]->runAction(actionTo);
 		}
 	}
@@ -277,7 +279,7 @@ void PlayTetrisLayer::OnNewBlock(BlockType block, int dir, int x, int y)
 
 void PlayTetrisLayer::OnBlockMove(int x, int y)
 {
-	m_fallBlock->SetPosition(x * 32 + 16, y * 32 + 16);
+	m_fallBlock->SetPosition(x * BLOCK_SIZE + BLOCK_CENTER, y * BLOCK_SIZE + BLOCK_CENTER);
 }
 
 void PlayTetrisLayer::OnBlockTurn(int dir)
@@ -324,8 +326,8 @@ void PlayTetrisLayer::SetFallBlockDir(int dir, bool isToEnd)
 void PlayTetrisLayer::SetBlockOnPos(BlockType block, int x, int y)
 {
 	auto sp = CreateBlockS(block);
-	sp[0]->setPosition(x * 32 + 16, y * 32 + 16);
-	sp[1]->setPosition(x * 32 + 16 + 9, y * 32 + 16 - 3);
+	sp[0]->setPosition(x * BLOCK_SIZE + BLOCK_CENTER, y * BLOCK_SIZE + BLOCK_CENTER);
+	sp[1]->setPosition(x * BLOCK_SIZE + BLOCK_CENTER + 9, y * BLOCK_SIZE + BLOCK_CENTER - 3);
 	m_rootNode->addChild(sp[0]);
 	m_rootNode->addChild(sp[1]);
 	m_blockSpriteMap[y][x] = sp;
@@ -413,7 +415,7 @@ void PlayTetrisLayer::FallBlockSprite::SetDir(int dir)
 	for (int i = 0; i < 4; ++i)
 	{
 		auto n = m_root->getChildByTag(i+1);
-		n->setPosition(d[i].first * 32, d[i].second * 32);
+		n->setPosition(d[i].first * BLOCK_SIZE, d[i].second * BLOCK_SIZE);
 	}
 }
 
