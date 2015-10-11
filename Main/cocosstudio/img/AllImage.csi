@@ -9,6 +9,8 @@
       <FilePathData Path="img/p_t.png" />
       <FilePathData Path="img/red_t.png" />
       <FilePathData Path="img/y_t.png" />
+      <FilePathData Path="img/bk1.png" />
+      <FilePathData Path="img/gay_t.png" />
     </ImageFiles>
     <MaxSize Width="256" Height="256" />
   </Content>

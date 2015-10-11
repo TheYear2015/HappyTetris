@@ -28,7 +28,7 @@
                 <CColor A="255" R="255" G="255" B="255" />
                 <PrePosition />
                 <PreSize X="0.0000" Y="0.0000" />
-                <FileData Type="Normal" Path="img/gay_t.png" Plist="" />
+                <FileData Type="MarkedSubImage" Path="img/gay_t.png" Plist="img/AllImage.plist" />
                 <BlendFunc Src="770" Dst="771" />
               </AbstractNodeData>
               <AbstractNodeData Name="TW" ActionTag="-1133213274" Tag="12" IconVisible="False" LeftMargin="32.0000" RightMargin="-96.0000" BottomMargin="-64.0000" ctype="SpriteObjectData">
@@ -146,7 +146,6 @@
             <CColor A="255" R="255" G="255" B="255" />
             <PrePosition X="0.1375" Y="0.4875" />
             <PreSize X="0.0016" Y="0.0010" />
-            <FileData Type="Normal" Path="scene/LinePieceA.csd" Plist="" />
           </AbstractNodeData>
         </Children>
       </ObjectData>

@@ -7,7 +7,7 @@
 			<key>img/blue_t.png</key>
 			<dict>
 				<key>frame</key>
-				<string>{{0,0},{32,32}}</string>
+				<string>{{0,64},{32,32}}</string>
 				<key>offset</key>
 				<string>{0,0}</string>
 				<key>rotated</key>
@@ -18,7 +18,7 @@
 			<key>img/c_t.png</key>
 			<dict>
 				<key>frame</key>
-				<string>{{0,32},{32,32}}</string>
+				<string>{{0,96},{32,32}}</string>
 				<key>offset</key>
 				<string>{0,0}</string>
 				<key>rotated</key>
@@ -29,7 +29,7 @@
 			<key>img/g_t.png</key>
 			<dict>
 				<key>frame</key>
-				<string>{{0,64},{32,32}}</string>
+				<string>{{0,128},{32,32}}</string>
 				<key>offset</key>
 				<string>{0,0}</string>
 				<key>rotated</key>
@@ -40,7 +40,7 @@
 			<key>img/o_t.png</key>
 			<dict>
 				<key>frame</key>
-				<string>{{0,96},{32,32}}</string>
+				<string>{{0,160},{32,32}}</string>
 				<key>offset</key>
 				<string>{0,0}</string>
 				<key>rotated</key>
@@ -51,7 +51,7 @@
 			<key>img/p_t.png</key>
 			<dict>
 				<key>frame</key>
-				<string>{{0,128},{32,32}}</string>
+				<string>{{0,192},{32,32}}</string>
 				<key>offset</key>
 				<string>{0,0}</string>
 				<key>rotated</key>
@@ -62,7 +62,7 @@
 			<key>img/red_t.png</key>
 			<dict>
 				<key>frame</key>
-				<string>{{0,160},{32,32}}</string>
+				<string>{{0,224},{32,32}}</string>
 				<key>offset</key>
 				<string>{0,0}</string>
 				<key>rotated</key>
@@ -73,13 +73,35 @@
 			<key>img/y_t.png</key>
 			<dict>
 				<key>frame</key>
-				<string>{{0,192},{32,32}}</string>
+				<string>{{32,64},{32,32}}</string>
 				<key>offset</key>
 				<string>{0,0}</string>
 				<key>rotated</key>
 				<false />
 				<key>sourceSize</key>
 				<string>{32,32}</string>
+			</dict>
+			<key>img/bk1.png</key>
+			<dict>
+				<key>frame</key>
+				<string>{{32,96},{32,32}}</string>
+				<key>offset</key>
+				<string>{0,0}</string>
+				<key>rotated</key>
+				<false />
+				<key>sourceSize</key>
+				<string>{32,32}</string>
+			</dict>
+			<key>img/gay_t.png</key>
+			<dict>
+				<key>frame</key>
+				<string>{{0,0},{64,64}}</string>
+				<key>offset</key>
+				<string>{0,0}</string>
+				<key>rotated</key>
+				<false />
+				<key>sourceSize</key>
+				<string>{64,64}</string>
 			</dict>
 		</dict>
 		<key>metadata</key>
@@ -91,12 +113,12 @@
 			<key>realTextureFileName</key>
 			<string>AllImage.png</string>
 			<key>size</key>
-			<string>{32,256}</string>
+			<string>{64,256}</string>
 		</dict>
 		<key>texture</key>
 		<dict>
 			<key>width</key>
-			<integer>32</integer>
+			<integer>64</integer>
 			<key>height</key>
 			<integer>256</integer>
 		</dict>

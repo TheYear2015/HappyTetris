@@ -7,13 +7,6 @@
           <Project Name="MainScene.csd" Type="Scene" />
           <Project Name="Launcher.csd" Type="Scene" />
           <Project Name="CenterNode.csd" Type="Node" />
-          <Project Name="LinePieceA.csd" Type="Skeleton" />
-          <Project Name="TBlock.csd" Type="Skeleton" />
-          <Project Name="Square.csd" Type="Skeleton" />
-          <Project Name="LBlock.csd" Type="Skeleton" />
-          <Project Name="ReverseLBlock.csd" Type="Skeleton" />
-          <Project Name="Squiggly.csd" Type="Skeleton" />
-          <Project Name="ReverseSquiggly.csd" Type="Skeleton" />
           <Project Name="PlayGame.csd" Type="Scene" />
           <Project Name="PlayTetrisLayer.csd" Type="Layer" />
           <Project Name="RedBlock.csd" Type="Node" />
@@ -48,6 +41,7 @@
           <Image Name="y_t_1.png" />
           <PlistInfo Name="AllImage.csi" Type="Plist" />
           <Image Name="bk1.png" />
+          <Image Name="bk0.png" />
         </Folder>
         <Folder Name="font">
           <Fnt Name="font.fnt" />

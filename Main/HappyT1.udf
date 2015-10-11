@@ -25,5 +25,19 @@
         <EnableHTML5Advanced Value="False" />
       </Value>
     </Item>
+    <Item Key="TabsParamsKey">
+      <Value ctype="TabsInfo">
+        <OpenedDocuments>
+          <FilePathData Path="img/AllImage.csi" />
+          <FilePathData Path="scene/BlueBlock.csd" />
+          <FilePathData Path="scene/CBlock.csd" />
+          <FilePathData Path="scene/GameScoreLayer.csd" />
+          <FilePathData Path="scene/RedBlock.csd" />
+          <FilePathData Path="scene/PlayGame.csd" />
+          <FilePathData Path="scene/PlayTetrisLayer.csd" />
+        </OpenedDocuments>
+        <ActiveDocument Path="img/AllImage.csi" />
+      </Value>
+    </Item>
   </Properties>
 </UserData>
