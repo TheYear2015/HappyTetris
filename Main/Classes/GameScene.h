@@ -131,13 +131,41 @@ private:
 
 	};
 
+	//预览下落方块单元
+	class NextFallBlockSprite
+	{
+
+	public:
+		NextFallBlockSprite(cocos2d::Node* parent);
+
+		~NextFallBlockSprite();
+
+		void SetPosition(int x, int y);
+
+		//设置方块方向
+		void SetDir(int dir);
+
+		//设置方块类型
+		void SetBlockType(BlockType block);
+
+		void SetScale(float scale);
+
+	private:
+		cocos2d::Node* m_root = nullptr;
+		int m_x;
+		int m_y;
+		BlockType m_block = BlockType::Empty;
+		cocos2d::Node* m_parent = nullptr;
+
+	};
+
 	//下落方块
 	FallBlockSprite* m_fallBlock;
 	
 	cocos2d::Node* m_nextFallBlockRoot = nullptr;
 
 	//后续需要下落方块
-	std::array<FallBlockSprite*, 3> m_nextFallBlock;
+	std::array<NextFallBlockSprite*, 3> m_nextFallBlock;
 
 	//分数显示
 	GameScoreLayer* m_scoreLayer = nullptr;

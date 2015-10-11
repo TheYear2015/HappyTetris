@@ -219,9 +219,9 @@ bool PlayTetrisLayer::init()
 
 	for (int i = 0; i < m_nextFallBlock.size(); ++i)
 	{
-		m_nextFallBlock[i] = new FallBlockSprite(m_nextFallBlockRoot);
-		//m_nextFallBlock[i]->SetPosition(32, 600 - i * 100);
-		//m_nextFallBlock[i]->SetScale(0.7f);
+		m_nextFallBlock[i] = new NextFallBlockSprite(m_nextFallBlockRoot);
+		m_nextFallBlock[i]->SetPosition(32, 600 - i * 100);
+		m_nextFallBlock[i]->SetScale(0.7f);
 	}
 	m_scoreLayer = GameScoreLayer::create();
 	addChild(m_scoreLayer);
@@ -470,4 +470,55 @@ void PlayTetrisLayer::FallBlockSprite::Begin()
 void PlayTetrisLayer::FallBlockSprite::SetScale(float scale)
 {
 	m_scale = scale;
+}
+
+PlayTetrisLayer::NextFallBlockSprite::NextFallBlockSprite(cocos2d::Node* parent)
+	:m_parent(parent)
+{
+	m_root = cocos2d::Node::create();
+	parent->addChild(m_root);
+}
+
+
+PlayTetrisLayer::NextFallBlockSprite::~NextFallBlockSprite()
+{
+	m_parent->removeChild(m_root);
+}
+
+void PlayTetrisLayer::NextFallBlockSprite::SetPosition(int x, int y)
+{
+	m_root->setPosition(x, y);
+}
+
+void PlayTetrisLayer::NextFallBlockSprite::SetDir(int dir)
+{
+	auto& d = FallBlock::GetBlockData(m_block, dir);
+	for (int i = 0; i < 4; ++i)
+	{
+		auto n = m_root->getChildByTag(i + 1);
+		n->setPosition(d[i].first * BLOCK_SIZE, d[i].second * BLOCK_SIZE);
+	}
+}
+
+void PlayTetrisLayer::NextFallBlockSprite::SetBlockType(BlockType block)
+{
+	if (m_block != block)
+	{
+		m_block = block;
+		m_root->removeAllChildren();
+
+		auto sp = CreatBlockSprite(block);
+		m_root->addChild(sp, 0, 1);
+		sp = CreatBlockSprite(block);
+		m_root->addChild(sp, 0, 2);
+		sp = CreatBlockSprite(block);
+		m_root->addChild(sp, 0, 3);
+		sp = CreatBlockSprite(block);
+		m_root->addChild(sp, 0, 4);
+	}
+}
+
+void PlayTetrisLayer::NextFallBlockSprite::SetScale(float scale)
+{
+	m_root->setScale(scale);
 }
