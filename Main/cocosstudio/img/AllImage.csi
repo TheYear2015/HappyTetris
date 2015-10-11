@@ -1,6 +1,15 @@
 <PlistInfoProjectFile>
   <PropertyGroup Type="Plist" Name="AllImage" ID="e671faf7-a574-43b1-8970-e275e82eb841" Version="2.3.2.3" />
   <Content ExportType="Png" SortAlgorithm="MaxRects" PicturePadding="0" AllowRotation="True" AllowAnySize="False" AllowTrim="False" ctype="PlistInfoData">
-    <MaxSize Width="1024" Height="1024" />
+    <ImageFiles>
+      <FilePathData Path="img/blue_t.png" />
+      <FilePathData Path="img/c_t.png" />
+      <FilePathData Path="img/g_t.png" />
+      <FilePathData Path="img/o_t.png" />
+      <FilePathData Path="img/p_t.png" />
+      <FilePathData Path="img/red_t.png" />
+      <FilePathData Path="img/y_t.png" />
+    </ImageFiles>
+    <MaxSize Width="256" Height="256" />
   </Content>
 </PlistInfoProjectFile>

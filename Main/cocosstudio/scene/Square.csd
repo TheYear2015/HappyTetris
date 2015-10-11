@@ -31,7 +31,7 @@
                 <CColor A="255" R="255" G="255" B="255" />
                 <PrePosition />
                 <PreSize X="0.0000" Y="0.0000" />
-                <FileData Type="Normal" Path="img/blue_t.png" Plist="" />
+                <FileData Type="MarkedSubImage" Path="img/blue_t.png" Plist="img/AllImage.plist" />
                 <BlendFunc Src="770" Dst="771" />
               </AbstractNodeData>
             </Children>
@@ -52,7 +52,7 @@
                 <CColor A="255" R="255" G="255" B="255" />
                 <PrePosition />
                 <PreSize X="0.0000" Y="0.0000" />
-                <FileData Type="Normal" Path="img/blue_t.png" Plist="" />
+                <FileData Type="MarkedSubImage" Path="img/blue_t.png" Plist="img/AllImage.plist" />
                 <BlendFunc Src="770" Dst="771" />
               </AbstractNodeData>
             </Children>
@@ -73,7 +73,7 @@
                 <CColor A="255" R="255" G="255" B="255" />
                 <PrePosition />
                 <PreSize X="0.0000" Y="0.0000" />
-                <FileData Type="Normal" Path="img/blue_t.png" Plist="" />
+                <FileData Type="MarkedSubImage" Path="img/blue_t.png" Plist="img/AllImage.plist" />
                 <BlendFunc Src="770" Dst="771" />
               </AbstractNodeData>
             </Children>
@@ -94,7 +94,7 @@
                 <CColor A="255" R="255" G="255" B="255" />
                 <PrePosition />
                 <PreSize X="0.0000" Y="0.0000" />
-                <FileData Type="Normal" Path="img/blue_t.png" Plist="" />
+                <FileData Type="MarkedSubImage" Path="img/blue_t.png" Plist="img/AllImage.plist" />
                 <BlendFunc Src="770" Dst="771" />
               </AbstractNodeData>
             </Children>

@@ -25,7 +25,8 @@ cocos2d::Sprite* CreatBlockSprite(BlockType block)
 {
 	int index = (int)block - (int)BlockType::IBlock;
 	const std::array<std::string, 7> blockTag = { "img/red_t.png", "img/o_t.png", "img/blue_t.png", "img/p_t.png", "img/g_t.png", "img/y_t.png", "img/c_t.png" };
-	return cocos2d::Sprite::create(blockTag[index]);
+
+	return cocos2d::Sprite::createWithSpriteFrameName(blockTag[index]);
 };
 
 std::array<cocos2d::Sprite*, 2> CreateBlockS(BlockType block)

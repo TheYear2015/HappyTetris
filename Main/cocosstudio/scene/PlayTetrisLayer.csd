@@ -28,7 +28,7 @@
                 <CColor A="255" R="255" G="255" B="255" />
                 <PrePosition />
                 <PreSize X="0.0000" Y="0.0000" />
-                <FileData Type="Normal" Path="img/blue_t.png" Plist="" />
+                <FileData Type="MarkedSubImage" Path="img/blue_t.png" Plist="img/AllImage.plist" />
                 <BlendFunc Src="1" Dst="771" />
               </AbstractNodeData>
               <AbstractNodeData Name="CBlock" ActionTag="-1350633945" VisibleForFrame="False" Tag="109" IconVisible="False" LeftMargin="-32.0000" RightMargin="-32.0000" TopMargin="-32.0000" BottomMargin="-32.0000" ctype="SpriteObjectData">
@@ -39,7 +39,7 @@
                 <CColor A="255" R="255" G="255" B="255" />
                 <PrePosition />
                 <PreSize X="0.0000" Y="0.0000" />
-                <FileData Type="Normal" Path="img/c_t.png" Plist="" />
+                <FileData Type="MarkedSubImage" Path="img/c_t.png" Plist="img/AllImage.plist" />
                 <BlendFunc Src="1" Dst="771" />
               </AbstractNodeData>
               <AbstractNodeData Name="GBlock" ActionTag="-4084899" VisibleForFrame="False" Tag="110" IconVisible="False" LeftMargin="-32.0000" RightMargin="-32.0000" TopMargin="-32.0000" BottomMargin="-32.0000" ctype="SpriteObjectData">
@@ -50,7 +50,7 @@
                 <CColor A="255" R="255" G="255" B="255" />
                 <PrePosition />
                 <PreSize X="0.0000" Y="0.0000" />
-                <FileData Type="Normal" Path="img/g_t.png" Plist="" />
+                <FileData Type="MarkedSubImage" Path="img/g_t.png" Plist="img/AllImage.plist" />
                 <BlendFunc Src="1" Dst="771" />
               </AbstractNodeData>
               <AbstractNodeData Name="RBlock" ActionTag="124328269" VisibleForFrame="False" Tag="111" IconVisible="False" LeftMargin="-32.0000" RightMargin="-32.0000" TopMargin="-32.0000" BottomMargin="-32.0000" ctype="SpriteObjectData">
@@ -61,7 +61,7 @@
                 <CColor A="255" R="255" G="255" B="255" />
                 <PrePosition />
                 <PreSize X="0.0000" Y="0.0000" />
-                <FileData Type="Normal" Path="img/red_t.png" Plist="" />
+                <FileData Type="MarkedSubImage" Path="img/red_t.png" Plist="img/AllImage.plist" />
                 <BlendFunc Src="1" Dst="771" />
               </AbstractNodeData>
               <AbstractNodeData Name="YBlock" ActionTag="1652729158" VisibleForFrame="False" Tag="112" IconVisible="False" LeftMargin="-32.0000" RightMargin="-32.0000" TopMargin="-32.0000" BottomMargin="-32.0000" ctype="SpriteObjectData">
@@ -72,7 +72,7 @@
                 <CColor A="255" R="255" G="255" B="255" />
                 <PrePosition />
                 <PreSize X="0.0000" Y="0.0000" />
-                <FileData Type="Normal" Path="img/y_t.png" Plist="" />
+                <FileData Type="MarkedSubImage" Path="img/y_t.png" Plist="img/AllImage.plist" />
                 <BlendFunc Src="1" Dst="771" />
               </AbstractNodeData>
               <AbstractNodeData Name="PBlock" ActionTag="1009428092" VisibleForFrame="False" Tag="113" IconVisible="False" LeftMargin="-32.0000" RightMargin="-32.0000" TopMargin="-32.0000" BottomMargin="-32.0000" ctype="SpriteObjectData">
@@ -83,7 +83,7 @@
                 <CColor A="255" R="255" G="255" B="255" />
                 <PrePosition />
                 <PreSize X="0.0000" Y="0.0000" />
-                <FileData Type="Normal" Path="img/p_t.png" Plist="" />
+                <FileData Type="MarkedSubImage" Path="img/p_t.png" Plist="img/AllImage.plist" />
                 <BlendFunc Src="1" Dst="771" />
               </AbstractNodeData>
               <AbstractNodeData Name="OBlock" ActionTag="1272929292" VisibleForFrame="False" Tag="114" IconVisible="False" LeftMargin="-32.0000" RightMargin="-32.0000" TopMargin="-32.0000" BottomMargin="-32.0000" ctype="SpriteObjectData">
@@ -94,7 +94,7 @@
                 <CColor A="255" R="255" G="255" B="255" />
                 <PrePosition />
                 <PreSize X="0.0000" Y="0.0000" />
-                <FileData Type="Normal" Path="img/o_t.png" Plist="" />
+                <FileData Type="MarkedSubImage" Path="img/o_t.png" Plist="img/AllImage.plist" />
                 <BlendFunc Src="1" Dst="771" />
               </AbstractNodeData>
             </Children>

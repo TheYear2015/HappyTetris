@@ -35,5 +35,8 @@ bool HelloWorld::init()
 
     addChild(rootNode);
 
+	CCSpriteFrameCache * cache = CCSpriteFrameCache::sharedSpriteFrameCache();
+	cache->addSpriteFramesWithFile("img/AllImage.plist");
+
     return true;
 }
