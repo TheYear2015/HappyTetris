@@ -26,10 +26,40 @@ cocos2d::Sprite* CreatBlockSprite(BlockType block)
 	int index = (int)block - (int)BlockType::IBlock;
 	const std::array<std::string, 7> blockTag = { "img/red_t.png", "img/o_t.png", "img/blue_t.png", "img/p_t.png", "img/g_t.png", "img/y_t.png", "img/c_t.png" };
 	return cocos2d::Sprite::create(blockTag[index]);
+};
+
+std::array<cocos2d::Sprite*, 2> CreateBlockS(BlockType block)
+{
+	std::array<cocos2d::Sprite*, 2> rev;
+	auto sp = CreatBlockSprite(block);
+	sp->setLocalZOrder((int)block + 100);
+	sp->setOpacity(255);
+	rev[0] = sp;
+
+	sp = CreatBlockSprite(block);
+	sp->setLocalZOrder((int)block);
+	sp->setOpacity(100);
+	rev[1] = sp;
+
+	return rev;
+}
+
+std::array<cocos2d::Sprite*, 2> CreateBlockS(BlockType block, cocos2d::Node* parent)
+{
+	auto a = CreateBlockS(block);
+	for (auto c : a)
+		parent->addChild(c);
+	return a;
 }
 
 #define BLOCK_SIZE 32
 #define BLOCK_CENTER 16
+
+#define BLOCK_POS_X_2_PX(x) (x * BLOCK_SIZE + BLOCK_CENTER)
+#define BLOCK_POS_X_2_PX_S(x) (x * BLOCK_SIZE + BLOCK_CENTER + 5)
+
+#define BLOCK_POS_Y_2_PY(y) (y * BLOCK_SIZE + BLOCK_CENTER)
+#define BLOCK_POS_Y_2_PY_S(y) (y * BLOCK_SIZE + BLOCK_CENTER + (10.0f - (float)y) / 10.0f * 5)
 
 PlayTetrisLayer::PlayTetrisLayer()
 {
@@ -190,8 +220,8 @@ bool PlayTetrisLayer::init()
 	for (int i = 0; i < m_nextFallBlock.size(); ++i)
 	{
 		m_nextFallBlock[i] = new FallBlockSprite(m_nextFallBlockRoot);
-		m_nextFallBlock[i]->SetPosition(32, 600 - i * 100);
-		m_nextFallBlock[i]->SetScale(0.7f);
+		//m_nextFallBlock[i]->SetPosition(32, 600 - i * 100);
+		//m_nextFallBlock[i]->SetScale(0.7f);
 	}
 	m_scoreLayer = GameScoreLayer::create();
 	addChild(m_scoreLayer);
@@ -240,9 +270,9 @@ void PlayTetrisLayer::OnBlocksFallFill(const std::vector<std::pair<std::pair<int
 			m_blockSpriteMap[p.second.second][p.second.first] = sp;
 
 			//move to
-			auto actionTo = cocos2d::MoveTo::create(0.1f, cocos2d::Vec2(p.second.first * BLOCK_SIZE + BLOCK_CENTER, p.second.second * BLOCK_SIZE + BLOCK_CENTER));
+			auto actionTo = cocos2d::MoveTo::create(0.1f, cocos2d::Vec2(BLOCK_POS_X_2_PX(p.second.first), BLOCK_POS_Y_2_PY(p.second.second)));
 			sp[0]->runAction(actionTo);
-			actionTo = cocos2d::MoveTo::create(0.1f, cocos2d::Vec2(p.second.first * BLOCK_SIZE + BLOCK_CENTER + 9, p.second.second * BLOCK_SIZE + BLOCK_CENTER - 3));
+			actionTo = cocos2d::MoveTo::create(0.1f, cocos2d::Vec2(BLOCK_POS_X_2_PX_S(p.second.first), BLOCK_POS_Y_2_PY_S(p.second.second)));
 			sp[1]->runAction(actionTo);
 		}
 	}
@@ -279,29 +309,12 @@ void PlayTetrisLayer::OnNewBlock(BlockType block, int dir, int x, int y)
 
 void PlayTetrisLayer::OnBlockMove(int x, int y)
 {
-	m_fallBlock->SetPosition(x * BLOCK_SIZE + BLOCK_CENTER, y * BLOCK_SIZE + BLOCK_CENTER);
+	m_fallBlock->SetPosition(x, y);
 }
 
 void PlayTetrisLayer::OnBlockTurn(int dir)
 {
 	SetFallBlockDir(dir);
-}
-
-std::array<cocos2d::Sprite*, 2> PlayTetrisLayer::CreateBlockS(BlockType block)
-{
-	std::array<cocos2d::Sprite*, 2> rev;
-	auto sp = CreatBlockSprite(block);
-	sp->setLocalZOrder((int)block + 100);
-	sp->setOpacity(255);
-	rev[0] = sp;
-
-	sp = CreatBlockSprite(block);
-	sp->setLocalZOrder((int)block);
-	sp->setOpacity(100);
-	rev[1] = sp;
-
-	return rev;
-
 }
 
 void PlayTetrisLayer::NewRound()
@@ -326,8 +339,8 @@ void PlayTetrisLayer::SetFallBlockDir(int dir, bool isToEnd)
 void PlayTetrisLayer::SetBlockOnPos(BlockType block, int x, int y)
 {
 	auto sp = CreateBlockS(block);
-	sp[0]->setPosition(x * BLOCK_SIZE + BLOCK_CENTER, y * BLOCK_SIZE + BLOCK_CENTER);
-	sp[1]->setPosition(x * BLOCK_SIZE + BLOCK_CENTER + 9, y * BLOCK_SIZE + BLOCK_CENTER - 3);
+	sp[0]->setPosition(BLOCK_POS_X_2_PX(x), BLOCK_POS_Y_2_PY(y));
+	sp[1]->setPosition(BLOCK_POS_X_2_PX_S(x), BLOCK_POS_Y_2_PY_S(y));
 	m_rootNode->addChild(sp[0]);
 	m_rootNode->addChild(sp[1]);
 	m_blockSpriteMap[y][x] = sp;
@@ -387,35 +400,38 @@ void PlayTetrisLayer::DeleteBlockSprite(cocos2d::Node* sp)
 	m_rootNode->removeChild(sp);
 }
 
-void PlayTetrisLayer::DeleteNextFallBlockNode(cocos2d::Node* node)
-{
-
-}
-
 PlayTetrisLayer::FallBlockSprite::FallBlockSprite(cocos2d::Node* parent)
 	:m_parent(parent)
 {
-	m_root = cocos2d::Node::create();
-	parent->addChild(m_root);
+	for (auto c : m_blockSprite)
+		c.fill(nullptr);
 }
 
 PlayTetrisLayer::FallBlockSprite::~FallBlockSprite()
 {
-	m_parent->removeChild(m_root);
+	for (auto c : m_blockSprite)
+		for (auto s : c)
+			m_parent->removeChild(s);
 }
 
 void PlayTetrisLayer::FallBlockSprite::SetPosition(int x, int y)
 {
-	m_root->setPosition(x, y);
+	m_x = x;
+	m_y = y;
+	SetDir(m_dir);
 }
 
 void PlayTetrisLayer::FallBlockSprite::SetDir(int dir)
 {
+	m_dir = dir;
 	auto& d = FallBlock::GetBlockData(m_block, dir);
 	for (int i = 0; i < 4; ++i)
 	{
-		auto n = m_root->getChildByTag(i+1);
-		n->setPosition(d[i].first * BLOCK_SIZE, d[i].second * BLOCK_SIZE);
+		int x = d[i].first + m_x;
+		int y = d[i].second + m_y;
+		auto n = m_blockSprite[i];
+		n[0]->setPosition(BLOCK_POS_X_2_PX(x), BLOCK_POS_Y_2_PY(y));
+		n[1]->setPosition(BLOCK_POS_X_2_PX_S(x), BLOCK_POS_Y_2_PY_S(y));
 	}
 }
 
@@ -424,31 +440,34 @@ void PlayTetrisLayer::FallBlockSprite::SetBlockType(BlockType block)
 	if (m_block != block)
 	{
 		m_block = block;
-		m_root->removeAllChildren();
+		for (auto c : m_blockSprite)
+			for (auto s : c)
+				m_parent->removeChild(s);
 
-		//创建指定的方块
-		auto sp = CreatBlockSprite(block);
-		m_root->addChild(sp,0, 1);
-		sp = CreatBlockSprite(block);
-		m_root->addChild(sp, 0, 2);
-		sp = CreatBlockSprite(block);
-		m_root->addChild(sp, 0, 3);
-		sp = CreatBlockSprite(block);
-		m_root->addChild(sp, 0, 4);
+		//创建指定的方块和投影
+		m_blockSprite[0] = CreateBlockS(block, m_parent);
+		m_blockSprite[1] = CreateBlockS(block, m_parent);
+		m_blockSprite[2] = CreateBlockS(block, m_parent);
+		m_blockSprite[3] = CreateBlockS(block, m_parent);
+
 	}
 }
 
 void PlayTetrisLayer::FallBlockSprite::End()
 {
-	m_root->setVisible(false);
+ 	for (auto c : m_blockSprite)
+ 		for (auto s : c)
+ 			s->setVisible(false);
 }
 
 void PlayTetrisLayer::FallBlockSprite::Begin()
 {
-	m_root->setVisible(true);
+ 	for (auto c : m_blockSprite)
+ 		for (auto s : c)
+ 			s->setVisible(true);
 }
 
 void PlayTetrisLayer::FallBlockSprite::SetScale(float scale)
 {
-	m_root->setScale(scale);
+	m_scale = scale;
 }

@@ -81,6 +81,7 @@ public:
 	virtual void OnNewBlockFailed() override;
 
 private:
+	//所有固定的方块
 	std::array<std::array<std::array<cocos2d::Sprite*,2>, TetrisData::Width>, TetrisData::Height> m_blockSpriteMap;
 
 	void SetBlockOnPos(BlockType block, int x, int y);
@@ -91,12 +92,8 @@ private:
 
 	void DeleteBlockSprite(cocos2d::Node*);
 
-	void DeleteNextFallBlockNode(cocos2d::Node*);
-
 private:
-	//创建指定类型的方块
-	std::array<cocos2d::Sprite*, 2> CreateBlockS(BlockType block);
-
+	//所有方块的root
 	cocos2d::Node* m_rootNode = nullptr;
 
 private:
@@ -124,9 +121,11 @@ private:
 		void SetScale(float scale);
 
 	private:
-		cocos2d::Node* m_root = nullptr;
+		std::array<std::array<cocos2d::Sprite*, 2>, 4> m_blockSprite;
 		int m_x;
 		int m_y;
+		int m_dir;
+		float m_scale = 1.0f;
 		BlockType m_block = BlockType::Empty;
 		cocos2d::Node* m_parent = nullptr;
 
@@ -137,8 +136,10 @@ private:
 	
 	cocos2d::Node* m_nextFallBlockRoot = nullptr;
 
+	//后续需要下落方块
 	std::array<FallBlockSprite*, 3> m_nextFallBlock;
 
+	//分数显示
 	GameScoreLayer* m_scoreLayer = nullptr;
 
 };
