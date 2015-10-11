@@ -217,12 +217,18 @@ bool PlayTetrisLayer::init()
 	addChild(m_nextFallBlockRoot);
 	m_nextFallBlockRoot->setPosition(0, 0);
 
-	for (int i = 0; i < m_nextFallBlock.size(); ++i)
-	{
-		m_nextFallBlock[i] = new NextFallBlockSprite(m_nextFallBlockRoot);
-		m_nextFallBlock[i]->SetPosition(32, 600 - i * 100);
-		m_nextFallBlock[i]->SetScale(0.7f);
-	}
+	m_nextFallBlock[0] = new NextFallBlockSprite(m_nextFallBlockRoot);
+	m_nextFallBlock[0]->SetPosition(8.5f * BLOCK_SIZE + BLOCK_CENTER, 800);
+	m_nextFallBlock[0]->SetScale(1.0f);
+
+	m_nextFallBlock[1] = new NextFallBlockSprite(m_nextFallBlockRoot);
+	m_nextFallBlock[1]->SetPosition(170, 800);
+	m_nextFallBlock[1]->SetScale(0.7f);
+
+	m_nextFallBlock[2] = new NextFallBlockSprite(m_nextFallBlockRoot);
+	m_nextFallBlock[2]->SetPosition(90, 800);
+	m_nextFallBlock[2]->SetScale(0.7f);
+
 	m_scoreLayer = GameScoreLayer::create();
 	addChild(m_scoreLayer);
 
@@ -496,7 +502,9 @@ void PlayTetrisLayer::NextFallBlockSprite::SetDir(int dir)
 	for (int i = 0; i < 4; ++i)
 	{
 		auto n = m_root->getChildByTag(i + 1);
-		n->setPosition(d[i].first * BLOCK_SIZE, d[i].second * BLOCK_SIZE);
+		n->setPosition(BLOCK_POS_X_2_PX(d[i].first), BLOCK_POS_Y_2_PY(d[i].second));
+		n = m_root->getChildByTag(i + 11);
+		n->setPosition(BLOCK_POS_X_2_PX(d[i].first) + 5, BLOCK_POS_Y_2_PY(d[i].second) + 5);
 	}
 }
 
@@ -507,14 +515,18 @@ void PlayTetrisLayer::NextFallBlockSprite::SetBlockType(BlockType block)
 		m_block = block;
 		m_root->removeAllChildren();
 
-		auto sp = CreatBlockSprite(block);
-		m_root->addChild(sp, 0, 1);
-		sp = CreatBlockSprite(block);
-		m_root->addChild(sp, 0, 2);
-		sp = CreatBlockSprite(block);
-		m_root->addChild(sp, 0, 3);
-		sp = CreatBlockSprite(block);
-		m_root->addChild(sp, 0, 4);
+		auto sp = CreateBlockS(block);
+		m_root->addChild(sp[0], 0, 1);
+		m_root->addChild(sp[1], 0, 11);
+		sp = CreateBlockS(block);
+		m_root->addChild(sp[0], 0, 2);
+		m_root->addChild(sp[1], 0, 12);
+		sp = CreateBlockS(block);
+		m_root->addChild(sp[0], 0, 3);
+		m_root->addChild(sp[1], 0, 13);
+		sp = CreateBlockS(block);
+		m_root->addChild(sp[0], 0, 4);
+		m_root->addChild(sp[1], 0, 14);
 	}
 }
 
