@@ -9,13 +9,6 @@
           <Project Name="CenterNode.csd" Type="Node" />
           <Project Name="PlayGame.csd" Type="Scene" />
           <Project Name="PlayTetrisLayer.csd" Type="Layer" />
-          <Project Name="RedBlock.csd" Type="Node" />
-          <Project Name="GreenBlock.csd" Type="Node" />
-          <Project Name="BlueBlock.csd" Type="Node" />
-          <Project Name="OBlock.csd" Type="Node" />
-          <Project Name="PBlock.csd" Type="Node" />
-          <Project Name="YBlock.csd" Type="Node" />
-          <Project Name="CBlock.csd" Type="Node" />
           <Project Name="NextFallBlockLayer.csd" Type="Layer" />
           <Project Name="GameScoreLayer.csd" Type="Layer" />
           <Project Name="Bk01.csd" Type="Skeleton" />
