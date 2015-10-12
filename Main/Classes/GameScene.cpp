@@ -62,6 +62,8 @@ std::array<cocos2d::Sprite*, 2> CreateBlockS(BlockType block, cocos2d::Node* par
 #define BLOCK_POS_Y_2_PY(y) (y * BLOCK_SIZE + BLOCK_CENTER)
 #define BLOCK_POS_Y_2_PY_S(y) (y * BLOCK_SIZE + BLOCK_CENTER + (10.0f - (float)y) / 10.0f * 5)
 
+#define CTRL_MOVE_BLOCK_DETAL 0.03f
+
 PlayTetrisLayer::PlayTetrisLayer()
 {
 	m_nextFallBlock.fill(nullptr);
@@ -86,9 +88,9 @@ void PlayTetrisLayer::update(float delta)
 	{
 		//连续位移操作
 		m_operatorFrameTime += delta;
-		if (m_operatorFrameTime >= 0.05f)
+		if (m_operatorFrameTime >= CTRL_MOVE_BLOCK_DETAL)
 		{
-			m_operatorFrameTime -= 0.05f;
+			m_operatorFrameTime -= CTRL_MOVE_BLOCK_DETAL;
 			OperatorFrame();
 		}
 	}
