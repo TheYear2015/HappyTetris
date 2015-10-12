@@ -164,6 +164,8 @@ private:
 	
 	cocos2d::Node* m_nextFallBlockRoot = nullptr;
 
+	cocos2d::Node* m_UILayer = nullptr;
+
 	//后续需要下落方块
 	std::array<NextFallBlockSprite*, 3> m_nextFallBlock;
 

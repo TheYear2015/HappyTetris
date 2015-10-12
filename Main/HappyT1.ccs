@@ -12,6 +12,7 @@
           <Project Name="NextFallBlockLayer.csd" Type="Layer" />
           <Project Name="GameScoreLayer.csd" Type="Layer" />
           <Project Name="Bk01.csd" Type="Skeleton" />
+          <Project Name="UILayer.csd" Type="Layer" />
         </Folder>
         <Folder Name="img">
           <Image Name="HelloWorld.png" />

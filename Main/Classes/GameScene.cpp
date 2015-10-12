@@ -235,6 +235,10 @@ bool PlayTetrisLayer::init()
 	m_scoreLayer = GameScoreLayer::create();
 	addChild(m_scoreLayer);
 
+	m_UILayer = CSLoader::createNode("scene/UILayer.csb");
+	addChild(m_UILayer);
+	auto btn = dynamic_cast<ui::Button*>(m_UILayer->getChildByName("LeftMove"));
+
 	auto listenerKeyboard = EventListenerKeyboard::create();
 	listenerKeyboard->onKeyPressed = CC_CALLBACK_2(PlayTetrisLayer::onKeyPressed, this);
 	listenerKeyboard->onKeyReleased = CC_CALLBACK_2(PlayTetrisLayer::onKeyReleased, this);
