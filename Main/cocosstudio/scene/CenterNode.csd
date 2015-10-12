@@ -83,7 +83,7 @@
                 <CColor A="255" R="255" G="255" B="255" />
                 <PrePosition />
                 <PreSize X="0.0000" Y="0.0000" />
-                <FileData Type="Normal" Path="img/black_t.png" Plist="" />
+                <FileData Type="MarkedSubImage" Path="img/black_t.png" Plist="img/AllImage.plist" />
                 <BlendFunc Src="770" Dst="771" />
               </AbstractNodeData>
               <AbstractNodeData Name="TR" ActionTag="874046769" Tag="52" IconVisible="False" LeftMargin="-160.0000" RightMargin="96.0000" TopMargin="-64.0000" ctype="SpriteObjectData">
