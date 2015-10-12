@@ -100,7 +100,8 @@ class FallBlock
 public:
 	typedef std::array<std::pair<int, int>, 4> BlockData;
 
-	static std::map<BlockType, std::array<BlockData,4>> BlockSet;
+	//0~3是四个方向，5是界面显示的位置
+	static std::map<BlockType, std::array<BlockData,5>> BlockSet;
 
 public:
 	BlockType Block() const;

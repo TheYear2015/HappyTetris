@@ -143,7 +143,7 @@ private:
 		void SetPosition(int x, int y);
 
 		//设置方块方向
-		void SetDir(int dir);
+		void SetDir();
 
 		//设置方块类型
 		void SetBlockType(BlockType block);

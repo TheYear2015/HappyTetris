@@ -219,15 +219,15 @@ bool PlayTetrisLayer::init()
 	m_nextFallBlockRoot->setPosition(0, 0);
 
 	m_nextFallBlock[0] = new NextFallBlockSprite(m_nextFallBlockRoot);
-	m_nextFallBlock[0]->SetPosition(8.5f * BLOCK_SIZE + BLOCK_CENTER, 800);
+	m_nextFallBlock[0]->SetPosition(9.5f * BLOCK_SIZE + BLOCK_CENTER, 860);
 	m_nextFallBlock[0]->SetScale(1.0f);
 
 	m_nextFallBlock[1] = new NextFallBlockSprite(m_nextFallBlockRoot);
-	m_nextFallBlock[1]->SetPosition(170, 800);
+	m_nextFallBlock[1]->SetPosition(200, 870);
 	m_nextFallBlock[1]->SetScale(0.7f);
 
 	m_nextFallBlock[2] = new NextFallBlockSprite(m_nextFallBlockRoot);
-	m_nextFallBlock[2]->SetPosition(90, 800);
+	m_nextFallBlock[2]->SetPosition(80, 870);
 	m_nextFallBlock[2]->SetScale(0.7f);
 
 	m_scoreLayer = GameScoreLayer::create();
@@ -310,7 +310,7 @@ void PlayTetrisLayer::OnNewBlock(BlockType block, int dir, int x, int y)
 	{
 		auto d = m_logic.GetNextFallBlock(i);
 		m_nextFallBlock[i]->SetBlockType((BlockType)d.first);
-		m_nextFallBlock[i]->SetDir(0);
+		m_nextFallBlock[i]->SetDir();
 	}
 }
 
@@ -497,9 +497,9 @@ void PlayTetrisLayer::NextFallBlockSprite::SetPosition(int x, int y)
 	m_root->setPosition(x, y);
 }
 
-void PlayTetrisLayer::NextFallBlockSprite::SetDir(int dir)
+void PlayTetrisLayer::NextFallBlockSprite::SetDir()
 {
-	auto& d = FallBlock::GetBlockData(m_block, dir);
+	auto& d = FallBlock::GetBlockData(m_block, 4);
 	for (int i = 0; i < 4; ++i)
 	{
 		auto n = m_root->getChildByTag(i + 1);

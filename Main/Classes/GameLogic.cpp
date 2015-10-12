@@ -130,7 +130,7 @@ void TetrisData::SetBlock(int x, int y, BlockType block)
 }
 
 
-std::map<BlockType, std::array<FallBlock::BlockData, 4>> FallBlock::BlockSet;
+std::map<BlockType, std::array<FallBlock::BlockData, 5>> FallBlock::BlockSet;
 
 const FallBlock::BlockData& FallBlock::GetBlockData(BlockType block, int dir)
 {
@@ -158,6 +158,11 @@ const FallBlock::BlockData& FallBlock::GetBlockData(BlockType block, int dir)
 			c[3][1] = { 1, 0 };
 			c[3][2] = { 1, -1 };
 			c[3][3] = { 1, -2 };
+			//
+			c[4][0] = { -1, 0 };
+			c[4][1] = { 0, 0 };
+			c[4][2] = { 1, 0 };
+			c[4][3] = { 2, 0 };
 		}
 		{
 			auto& c = BlockSet[BlockType::OBlock];
@@ -181,6 +186,11 @@ const FallBlock::BlockData& FallBlock::GetBlockData(BlockType block, int dir)
 			c[3][1] = { 0, 0 };
 			c[3][2] = { 1, 0 };
 			c[3][3] = { 1, 1 };
+			//
+			c[4][0] = { 0, 1 };
+			c[4][1] = { 0, 0 };
+			c[4][2] = { 1, 0 };
+			c[4][3] = { 1,1 };
 		}
 		{
 			auto& c = BlockSet[BlockType::SBlock];
@@ -204,6 +214,11 @@ const FallBlock::BlockData& FallBlock::GetBlockData(BlockType block, int dir)
 			c[3][1] = { 0, 0 };
 			c[3][2] = { -1, 0 };
 			c[3][3] = { 0, -1 };
+			//
+			c[4][0] = { 1, 1 };
+			c[4][1] = { 0, 1 };
+			c[4][2] = { 0, 0 };
+			c[4][3] = { -1, 0 };
 		}
 		{
 			auto& c = BlockSet[BlockType::ZBlock];
@@ -227,6 +242,11 @@ const FallBlock::BlockData& FallBlock::GetBlockData(BlockType block, int dir)
 			c[3][1] = { 0, 0 };
 			c[3][2] = { 0, -1 };
 			c[3][3] = { 1, 1 };
+			//
+			c[4][0] = { -1, 1 };
+			c[4][1] = { 0, 1 };
+			c[4][2] = { 1, 0 };
+			c[4][3] = { 0, 0 };
 		}
 		{
 			auto& c = BlockSet[BlockType::TBlock];
@@ -250,6 +270,11 @@ const FallBlock::BlockData& FallBlock::GetBlockData(BlockType block, int dir)
 			c[3][1] = { 0, 0 };
 			c[3][2] = { 1, 0 };
 			c[3][3] = { 0, 1 };
+			//
+			c[4][0] = { -1, 1 };
+			c[4][1] = { 0, 1 };
+			c[4][2] = { 0, 0 };
+			c[4][3] = { 1, 1 };
 		}
 		{
 			auto& c = BlockSet[BlockType::LBlock];
@@ -273,6 +298,11 @@ const FallBlock::BlockData& FallBlock::GetBlockData(BlockType block, int dir)
 			c[3][1] = { 0, 0 };
 			c[3][2] = { 0, 1 };
 			c[3][3] = { 1, -1 };
+			//
+			c[4][0] = { 1, 1 };
+			c[4][1] = { 0, 1 };
+			c[4][2] = { -1, 1 };
+			c[4][3] = { -1, 0 };
 		}
 		{
 			auto& c = BlockSet[BlockType::JBlock];
@@ -296,9 +326,14 @@ const FallBlock::BlockData& FallBlock::GetBlockData(BlockType block, int dir)
 			c[3][1] = { 0, 0 };
 			c[3][2] = { 0, -1 };
 			c[3][3] = { 1, 1 };
+			//
+			c[4][0] = { -1, 1 };
+			c[4][1] = { 0, 1 };
+			c[4][2] = { 1, 1 };
+			c[4][3] = { 1, 0 };
 		}
 	}
-	return BlockSet[block][dir % 4];
+	return BlockSet[block][dir % 5];
 }
 
 const FallBlock::BlockData& FallBlock::GetBlockData() const
@@ -357,9 +392,10 @@ void PlayTetris::FallEnd()
 	int y = m_fallBlockPos.second;
 	int x = m_fallBlockPos.first;
 	auto& fallD = m_fallBlock.GetBlockData();
-	for (auto& p : fallD)
+	for (int i = 0; i < 4; ++i)
 	{
-		m_data.SetBlock(x + p.first, y + p.second, m_fallBlock.Block());
+		auto& d = fallD[i];
+		m_data.SetBlock(x + d.first, y + d.second, m_fallBlock.Block());
 	}
 	if (m_observer)
 	{
@@ -580,9 +616,9 @@ void PlayTetris::BlockFall(int step)
 bool PlayTetris::IsFallBlockEnablePos(int x, int y, int dir) const
 {
 	auto& fallD = m_fallBlock.GetBlockData(dir);
-	for (auto& p : fallD)
+	for (int i = 0; i < 4; ++i)
 	{
-		if (!m_data.IsBlockEmpty(x + p.first, y + p.second))
+		if (!m_data.IsBlockEmpty(x + fallD[i].first, y + fallD[i].second))
 		{
 			return false;
 		}
