@@ -6,7 +6,7 @@
       <ObjectData Name="Layer" Tag="36" ctype="GameLayerObjectData">
         <Size X="640.0000" Y="960.0000" />
         <Children>
-          <AbstractNodeData Name="LeftMove" ActionTag="1453556607" Tag="37" IconVisible="False" LeftMargin="399.0000" RightMargin="195.0000" TopMargin="862.0000" BottomMargin="62.0000" TouchEnable="True" FontSize="14" ButtonText="Left" Scale9Enable="True" LeftEage="15" RightEage="15" TopEage="11" BottomEage="11" Scale9OriginX="15" Scale9OriginY="11" Scale9Width="16" Scale9Height="14" ShadowOffsetX="2.0000" ShadowOffsetY="-2.0000" ctype="ButtonObjectData">
+          <AbstractNodeData Name="LeftMove" ActionTag="1453556607" CallBackType="Click" Tag="37" IconVisible="False" LeftMargin="399.0000" RightMargin="195.0000" TopMargin="862.0000" BottomMargin="62.0000" TouchEnable="True" FontSize="14" ButtonText="Left" Scale9Enable="True" LeftEage="15" RightEage="15" TopEage="11" BottomEage="11" Scale9OriginX="15" Scale9OriginY="11" Scale9Width="16" Scale9Height="14" ShadowOffsetX="2.0000" ShadowOffsetY="-2.0000" ctype="ButtonObjectData">
             <Size X="46.0000" Y="36.0000" />
             <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
             <Position X="422.0000" Y="80.0000" />
