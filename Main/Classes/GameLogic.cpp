@@ -794,14 +794,14 @@ BlockType BlockGenerator::GetNewBlock()
 	if (m_queue.size() < 7)
 	{
 		//生成数据
-		BlockType bb[7];
-		for (int i = 0; i < 7; ++i)
+		std::array<BlockType,7> bb;
+		for (int i = 0; i < bb.size(); ++i)
 		{
-			bb[i] = (BlockType)((int)BlockType::IBlock + i);
+			bb[i] = (BlockType)((int)BlockType::IBlock + i%7);
 		}
-		for (int i = 0; i < 7; ++i)
+		for (int i = 0; i < bb.size(); ++i)
 		{
-			int j = m_rand.Rand() % 7;
+			int j = m_rand.Rand() % bb.size();
 			if (j  != i)
 			{
 				auto b = bb[i];
@@ -809,9 +809,9 @@ BlockType BlockGenerator::GetNewBlock()
 				bb[j] = b;
 			}
 		}
-		for (int i = 0; i < 7; ++i)
+		for (auto b : bb)
 		{
-			m_queue.push( bb[i]);
+			m_queue.push( b);
 		}
 
 	}
