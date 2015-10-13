@@ -31,7 +31,6 @@
           <FilePathData Path="scene/GameScoreLayer.csd" />
           <FilePathData Path="scene/PlayTetrisLayer.csd" />
           <FilePathData Path="scene/NextFallBlockLayer.csd" />
-          <FilePathData Path="scene/Squiggly.csd" />
         </OpenedDocuments>
         <ActiveDocument Path="scene/PlayTetrisLayer.csd" />
       </Value>
