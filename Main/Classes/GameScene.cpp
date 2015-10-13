@@ -63,6 +63,11 @@ std::array<cocos2d::Sprite*, 2> CreateBlockAndShadow(BlockType block, cocos2d::N
 }
 
 
+//Ê¾Àý
+// ComRender *render = static_cast<ComRender*>(_rootNode->getChildByTag(10025)->getComponent("GUIComponent"));
+// Widget* widget = static_cast<cocos2d::ui::Widget*>(render->getNode());
+// Button* button = static_cast<Button*>(widget->getChildByName("Button_156"));
+// button->addTouchEventListener(CC_CALLBACK_2(UIComponentTest::touchEvent, this));
 
 #define BLOCK_SIZE 32
 #define BLOCK_CENTER 16
@@ -87,6 +92,7 @@ PlayTetrisLayer::PlayTetrisLayer()
 PlayTetrisLayer::~PlayTetrisLayer()
 {
 	delete m_fallBlock;
+	delete m_previewFallBlock;
 	for (auto n : m_nextFallBlock)
 	{
 		delete n;

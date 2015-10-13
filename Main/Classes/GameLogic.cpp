@@ -516,10 +516,8 @@ void PlayTetris::NewFallBlock()
 
 	if (m_newFallBlockInfo.empty())
 	{
-		int bt = m_newFallBlockRand.Rand() % 7;
-		if (bt == 0 && (m_newFallBlockRand.Rand() % 3) == 1)
-			bt = m_newFallBlockRand.Rand() % 7;
-		m_fallBlock.Block((BlockType)((int)BlockType::IBlock + bt));
+		auto bt = m_newFallBlockRand.GetNewBlock();
+		m_fallBlock.Block(bt);
 		m_fallBlock.Dir(0);
 	}
 	else
@@ -689,11 +687,8 @@ std::pair<int, int> PlayTetris::GetNextFallBlock(int index) const
 {
 	while (m_newFallBlockInfo.size() < 3)
 	{
-		int bt = m_newFallBlockRand.Rand() % 7;
-		if (bt == 0 && (m_newFallBlockRand.Rand() % 3) == 1)
-			bt = m_newFallBlockRand.Rand() % 7;
 		m_newFallBlockInfo.push_back(std::make_pair(
-			((int)BlockType::IBlock + bt)
+			((int)m_newFallBlockRand.GetNewBlock())
 			, 0));
 	}
 	return m_newFallBlockInfo[index];
@@ -702,7 +697,7 @@ std::pair<int, int> PlayTetris::GetNextFallBlock(int index) const
 void PlayTetris::NewRound()
 {
 	m_newFallBlockInfo.clear();
-	m_newFallBlockRand.SRand(NewFallBlockSeed[0]);// rand() % NewFallBlockSeed.size()]);
+	m_newFallBlockRand.SetSeed(NewFallBlockSeed[0]);// rand() % NewFallBlockSeed.size()]);
 	CleanAllBlock();
 	m_fallSpeedLevel = 1;
 	m_fallSpeedLevelRang = { 1, 15 };
@@ -792,4 +787,40 @@ uint32_t MyRand::Rand() const
 {
 	return(((m_r = m_r * 214013L
 		+ 2531011L) >> 16) & 0x7fff);
+}
+
+BlockType BlockGenerator::GetNewBlock()
+{
+	if (m_queue.size() < 7)
+	{
+		//生成数据
+		BlockType bb[7];
+		for (int i = 0; i < 7; ++i)
+		{
+			bb[i] = (BlockType)((int)BlockType::IBlock + i);
+		}
+		for (int i = 0; i < 7; ++i)
+		{
+			int j = m_rand.Rand() % 7;
+			if (j  != i)
+			{
+				auto b = bb[i];
+				bb[i] = bb[j];
+				bb[j] = b;
+			}
+		}
+		for (int i = 0; i < 7; ++i)
+		{
+			m_queue.push( bb[i]);
+		}
+
+	}
+	auto b = m_queue.front();
+	m_queue.pop();
+	return b;
+}
+
+void BlockGenerator::SetSeed(uint32_t seed)
+{
+	m_rand.SRand(seed);
 }

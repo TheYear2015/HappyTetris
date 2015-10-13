@@ -33,6 +33,21 @@ enum class BlockType
 	TBlock
 };
 
+
+
+class BlockGenerator
+{
+public:
+	BlockType GetNewBlock();
+
+	void SetSeed(uint32_t seed);
+private:
+	std::queue<BlockType> m_queue;
+
+	MyRand m_rand;
+};
+
+
 //ÓÎÏ·Êý¾Ý
 class TetrisData
 {
@@ -259,7 +274,7 @@ private:
 
 	PlayTetrisObserver* m_observer = nullptr;
 
-	MyRand m_newFallBlockRand;
+	mutable BlockGenerator m_newFallBlockRand;
 
 	mutable std::vector<std::pair<int,int>> m_newFallBlockInfo;
 };
