@@ -202,6 +202,9 @@ public:
 
 	//获得下一个块的信息(0~2)
 	std::pair<int, int> GetNextFallBlock(int index) const;
+
+	//获得预览方块的位置
+	std::pair<int, int> GetPreviewFallBlockPos() const;
 	
 private:
 	//产生一个新的方块，并开始下落

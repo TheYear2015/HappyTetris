@@ -759,6 +759,29 @@ void PlayTetris::ProcBlockFallEnd()
 	}
 }
 
+std::pair<int, int> PlayTetris::GetPreviewFallBlockPos() const
+{
+	int x = m_fallBlockPos.first;
+	int y = m_fallBlockPos.second;
+	int step = 21;
+	int dir = m_fallBlock.Dir();
+	int i = 1;
+	for (; i <= 21; ++i)
+	{
+		if (!IsFallBlockEnablePos(x, y - i, dir))
+		{
+			break;
+		}
+	}
+	--i;
+	if (i > 0)
+	{
+		y -= i;
+	}
+
+	return{x,y};
+}
+
 
 void MyRand::SRand(uint32_t s)
 {
