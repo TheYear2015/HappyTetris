@@ -167,7 +167,6 @@ private:
 	//方块下落预览
 	FallBlockSprite* m_previewFallBlock = nullptr;
 
-
 	cocos2d::Node* m_nextFallBlockRoot = nullptr;
 
 	//后续需要下落方块
