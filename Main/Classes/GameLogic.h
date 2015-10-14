@@ -33,6 +33,23 @@ enum class BlockType
 	TBlock
 };
 
+
+
+class BlockGenerator
+{
+public:
+	BlockType GetNewBlock();
+
+	void SetSeed(uint32_t seed);
+private:
+	std::queue<BlockType> m_queue;
+
+	MyRand m_rand;
+
+	int m_blockIndex = 0;
+};
+
+
 //游戏数据
 class TetrisData
 {
@@ -177,6 +194,12 @@ public:
 	//获得下落的行数
 	int CleanLinesCount() const { return m_cleanLinesCount; }
 
+	//获得游戏分数
+	int GetGameScore() const{ return m_gameScore; }
+
+	//获得游戏等级
+	int GetGameLevel() const { return m_gameLevel; }
+
 public:
 
 	//旋转下落方块
@@ -202,6 +225,9 @@ public:
 
 	//获得下一个块的信息(0~2)
 	std::pair<int, int> GetNextFallBlock(int index) const;
+
+	//获得预览方块的位置
+	std::pair<int, int> GetPreviewFallBlockPos() const;
 	
 private:
 	//产生一个新的方块，并开始下落
@@ -243,6 +269,12 @@ private:
 	//消除的行数
 	int m_cleanLinesCount = 0;
 
+	//游戏分数
+	int m_gameScore = 0;
+
+	//游戏等级
+	int m_gameLevel = 1;
+
 	//出现的方块的个数
 	int m_fallBlockCount = 0;
 
@@ -256,7 +288,7 @@ private:
 
 	PlayTetrisObserver* m_observer = nullptr;
 
-	MyRand m_newFallBlockRand;
+	mutable BlockGenerator m_newFallBlockRand;
 
 	mutable std::vector<std::pair<int,int>> m_newFallBlockInfo;
 };

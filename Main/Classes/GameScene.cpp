@@ -29,29 +29,45 @@ cocos2d::Sprite* CreatBlockSprite(BlockType block)
 	return cocos2d::Sprite::createWithSpriteFrameName(blockTag[index]);
 };
 
-std::array<cocos2d::Sprite*, 2> CreateBlockS(BlockType block)
+std::array<cocos2d::Sprite*, 2> CreateBlockAndShadow (BlockType block, bool needShdow = true)
 {
 	std::array<cocos2d::Sprite*, 2> rev;
 	auto sp = CreatBlockSprite(block);
 	sp->setLocalZOrder((int)block + 100);
 	sp->setOpacity(255);
 	rev[0] = sp;
+	if (!needShdow)
+	{
+		sp->setOpacity(100);
+	}
 
-	sp = CreatBlockSprite(block);
-	sp->setLocalZOrder((int)block);
-	sp->setOpacity(100);
-	rev[1] = sp;
+	rev[1] = nullptr;
+	if(needShdow)
+	{
+		sp = CreatBlockSprite(block);
+		sp->setLocalZOrder((int)block);
+		sp->setOpacity(100);
+		rev[1] = sp;
+	}
 
 	return rev;
 }
 
-std::array<cocos2d::Sprite*, 2> CreateBlockS(BlockType block, cocos2d::Node* parent)
+std::array<cocos2d::Sprite*, 2> CreateBlockAndShadow(BlockType block, cocos2d::Node* parent, bool needShdow = true)
 {
-	auto a = CreateBlockS(block);
+	auto a = CreateBlockAndShadow(block, needShdow);
 	for (auto c : a)
-		parent->addChild(c);
+		if (c)
+			parent->addChild(c);
 	return a;
 }
+
+
+//示例
+// ComRender *render = static_cast<ComRender*>(_rootNode->getChildByTag(10025)->getComponent("GUIComponent"));
+// Widget* widget = static_cast<cocos2d::ui::Widget*>(render->getNode());
+// Button* button = static_cast<Button*>(widget->getChildByName("Button_156"));
+// button->addTouchEventListener(CC_CALLBACK_2(UIComponentTest::touchEvent, this));
 
 #define BLOCK_SIZE 32
 #define BLOCK_CENTER 16
@@ -76,6 +92,7 @@ PlayTetrisLayer::PlayTetrisLayer()
 PlayTetrisLayer::~PlayTetrisLayer()
 {
 	delete m_fallBlock;
+	delete m_previewFallBlock;
 	for (auto n : m_nextFallBlock)
 	{
 		delete n;
@@ -214,22 +231,23 @@ bool PlayTetrisLayer::init()
 	n->setContentSize(size);
 	addChild(n);
 	m_rootNode = n->getChildByName("Root");
-	m_fallBlock = new FallBlockSprite(m_rootNode);
+	m_previewFallBlock = new FallBlockSprite(1, m_rootNode);
+	m_fallBlock = new FallBlockSprite(0, m_rootNode);
 
 	m_nextFallBlockRoot = CSLoader::createNode("scene/NextFallBlockLayer.csb");
 	addChild(m_nextFallBlockRoot);
 	m_nextFallBlockRoot->setPosition(0, 0);
 
 	m_nextFallBlock[0] = new NextFallBlockSprite(m_nextFallBlockRoot);
-	m_nextFallBlock[0]->SetPosition(9.5f * BLOCK_SIZE + BLOCK_CENTER, 860);
+	m_nextFallBlock[0]->SetPosition(9.5f * BLOCK_SIZE + BLOCK_CENTER, 850);
 	m_nextFallBlock[0]->SetScale(1.0f);
 
 	m_nextFallBlock[1] = new NextFallBlockSprite(m_nextFallBlockRoot);
-	m_nextFallBlock[1]->SetPosition(200, 870);
+	m_nextFallBlock[1]->SetPosition(200, 850);
 	m_nextFallBlock[1]->SetScale(0.7f);
 
 	m_nextFallBlock[2] = new NextFallBlockSprite(m_nextFallBlockRoot);
-	m_nextFallBlock[2]->SetPosition(80, 870);
+	m_nextFallBlock[2]->SetPosition(80, 850);
 	m_nextFallBlock[2]->SetScale(0.7f);
 
 	m_scoreLayer = GameScoreLayer::create();
@@ -257,18 +275,18 @@ void PlayTetrisLayer::OnlineClean(const std::array<int, TetrisData::Height>& lin
 	for (auto i : lines)
 	{
 		if (i < 0)
+		{
 			break;
+		}
 		RemoveLine(i);
 	}
 
 	this->scheduleOnce([&](float dt) { m_logic.FallBlockAfterDel(); }, 0.2f,"fallBlockAfterDel");
 
 	int lineC = m_logic.CleanLinesCount();
-	m_logic.SetFallLevel(lineC / 10 + 1);
-
 	m_scoreLayer->SetCleanLinesCount(lineC);
-	m_scoreLayer->SetGameScore(lineC * 1000);
-	m_scoreLayer->SetSpeedLevel(lineC / 10 + 1);
+	m_scoreLayer->SetGameScore(m_logic.GetGameScore());
+	m_scoreLayer->SetGameLevel(m_logic.GetGameLevel());
 
 }
 
@@ -302,6 +320,7 @@ void PlayTetrisLayer::OnBlockFallEnd(BlockType block, const std::array<std::pair
 	}
 
 	m_fallBlock->End();
+	m_previewFallBlock->End();
 
 }
 
@@ -310,6 +329,9 @@ void PlayTetrisLayer::OnNewBlock(BlockType block, int dir, int x, int y)
 	m_fallBlock->SetBlockType(block);
 	m_fallBlock->SetDir(dir);
 	m_fallBlock->Begin();
+	m_previewFallBlock->SetBlockType(block);
+	m_previewFallBlock->SetDir(dir);
+	m_previewFallBlock->Begin();
 	OnBlockMove(x,y);
 
 	for (int i = 0; i < 3; ++i)
@@ -323,6 +345,10 @@ void PlayTetrisLayer::OnNewBlock(BlockType block, int dir, int x, int y)
 void PlayTetrisLayer::OnBlockMove(int x, int y)
 {
 	m_fallBlock->SetPosition(x, y);
+	//刷新预览方块的位置
+	auto pos = m_logic.GetPreviewFallBlockPos();
+	m_previewFallBlock->SetPosition(pos.first, pos.second);
+
 }
 
 void PlayTetrisLayer::OnBlockTurn(int dir)
@@ -340,18 +366,23 @@ void PlayTetrisLayer::NewRound()
 	m_logic.ControlNewFallBlock();
 
 	m_scoreLayer->SetGameScore(0);
-	m_scoreLayer->SetSpeedLevel(1);
+	m_scoreLayer->SetGameLevel(1);
 	m_scoreLayer->SetCleanLinesCount(0);
 }
 
 void PlayTetrisLayer::SetFallBlockDir(int dir, bool isToEnd)
 {
 	m_fallBlock->SetDir(dir);
+	m_previewFallBlock->SetDir(dir);
+	//刷新预览方块的位置
+	auto pos = m_logic.GetPreviewFallBlockPos();
+	m_previewFallBlock->SetPosition(pos.first, pos.second);
+
 }
 
 void PlayTetrisLayer::SetBlockOnPos(BlockType block, int x, int y)
 {
-	auto sp = CreateBlockS(block);
+	auto sp = CreateBlockAndShadow (block);
 	sp[0]->setPosition(BLOCK_POS_X_2_PX(x), BLOCK_POS_Y_2_PY(y));
 	sp[1]->setPosition(BLOCK_POS_X_2_PX_S(x), BLOCK_POS_Y_2_PY_S(y));
 	m_rootNode->addChild(sp[0]);
@@ -413,8 +444,9 @@ void PlayTetrisLayer::DeleteBlockSprite(cocos2d::Node* sp)
 	m_rootNode->removeChild(sp);
 }
 
-PlayTetrisLayer::FallBlockSprite::FallBlockSprite(cocos2d::Node* parent)
+PlayTetrisLayer::FallBlockSprite::FallBlockSprite(int type, cocos2d::Node* parent)
 	:m_parent(parent)
+	, m_type(type)
 {
 	for (auto c : m_blockSprite)
 		c.fill(nullptr);
@@ -444,7 +476,8 @@ void PlayTetrisLayer::FallBlockSprite::SetDir(int dir)
 		int y = d[i].second + m_y;
 		auto n = m_blockSprite[i];
 		n[0]->setPosition(BLOCK_POS_X_2_PX(x), BLOCK_POS_Y_2_PY(y));
-		n[1]->setPosition(BLOCK_POS_X_2_PX_S(x), BLOCK_POS_Y_2_PY_S(y));
+		if (m_type == 0)
+			n[1]->setPosition(BLOCK_POS_X_2_PX_S(x), BLOCK_POS_Y_2_PY_S(y));
 	}
 }
 
@@ -458,10 +491,10 @@ void PlayTetrisLayer::FallBlockSprite::SetBlockType(BlockType block)
 				m_parent->removeChild(s);
 
 		//创建指定的方块和投影
-		m_blockSprite[0] = CreateBlockS(block, m_parent);
-		m_blockSprite[1] = CreateBlockS(block, m_parent);
-		m_blockSprite[2] = CreateBlockS(block, m_parent);
-		m_blockSprite[3] = CreateBlockS(block, m_parent);
+		m_blockSprite[0] = CreateBlockAndShadow (block, m_parent, m_type == 0);
+		m_blockSprite[1] = CreateBlockAndShadow(block, m_parent, m_type == 0);
+		m_blockSprite[2] = CreateBlockAndShadow(block, m_parent, m_type == 0);
+		m_blockSprite[3] = CreateBlockAndShadow(block, m_parent, m_type == 0);
 
 	}
 }
@@ -470,6 +503,7 @@ void PlayTetrisLayer::FallBlockSprite::End()
 {
  	for (auto c : m_blockSprite)
  		for (auto s : c)
+			if (s)
  			s->setVisible(false);
 }
 
@@ -477,6 +511,7 @@ void PlayTetrisLayer::FallBlockSprite::Begin()
 {
  	for (auto c : m_blockSprite)
  		for (auto s : c)
+			if (s)
  			s->setVisible(true);
 }
 
@@ -522,16 +557,16 @@ void PlayTetrisLayer::NextFallBlockSprite::SetBlockType(BlockType block)
 		m_block = block;
 		m_root->removeAllChildren();
 
-		auto sp = CreateBlockS(block);
+		auto sp = CreateBlockAndShadow (block);
 		m_root->addChild(sp[0], 0, 1);
 		m_root->addChild(sp[1], 0, 11);
-		sp = CreateBlockS(block);
+		sp = CreateBlockAndShadow (block);
 		m_root->addChild(sp[0], 0, 2);
 		m_root->addChild(sp[1], 0, 12);
-		sp = CreateBlockS(block);
+		sp = CreateBlockAndShadow (block);
 		m_root->addChild(sp[0], 0, 3);
 		m_root->addChild(sp[1], 0, 13);
-		sp = CreateBlockS(block);
+		sp = CreateBlockAndShadow (block);
 		m_root->addChild(sp[0], 0, 4);
 		m_root->addChild(sp[1], 0, 14);
 	}

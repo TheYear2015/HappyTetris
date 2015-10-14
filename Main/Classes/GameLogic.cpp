@@ -4,25 +4,8 @@
 const std::vector<uint32_t> NewFallBlockSeed =
 {
 	600096	 
-	,	679689	 
-	,	3532575	 
-	,	4041326	 
-	,	4648256	 
-	,	9098805	 
-	,	24996354	 
-	,	41383670	 
-	,	55501060	 
-	,	57440446	 
-	,	60163783	 
-	,	60905549	 
-	,	62028596	 
-	,	67920479	 
-	,	68755856	 
-	,	86866161	 
-	,	88398680	 
-	,	93206168	 
-	,	94319564	 
-	,	105276704	 
+	,679689	 
+
 };
 
 TetrisData::TetrisData()
@@ -159,10 +142,10 @@ const FallBlock::BlockData& FallBlock::GetBlockData(BlockType block, int dir)
 			c[3][2] = { 1, -1 };
 			c[3][3] = { 1, -2 };
 			//
-			c[4][0] = { -1, 0 };
-			c[4][1] = { 0, 0 };
-			c[4][2] = { 1, 0 };
-			c[4][3] = { 2, 0 };
+			c[4][0] = { -1, 1 };
+			c[4][1] = { 0, 1 };
+			c[4][2] = { 1, 1};
+			c[4][3] = { 2, 1 };
 		}
 		{
 			auto& c = BlockSet[BlockType::OBlock];
@@ -367,6 +350,14 @@ void FallBlock::Dir(int dir)
 	m_blockDir = dir % 4;
 }
 
+
+//消除每行的分数计算
+static int GetCleanLinesScore(int level, int linesCount)
+{
+	const int lC[] = { 1, 3, 5, 8 };
+	return 40 * level*lC[linesCount - 1];
+}
+
 PlayTetris::PlayTetris()
 {
 
@@ -516,10 +507,8 @@ void PlayTetris::NewFallBlock()
 
 	if (m_newFallBlockInfo.empty())
 	{
-		int bt = m_newFallBlockRand.Rand() % 7;
-		if (bt == 0 && (m_newFallBlockRand.Rand() % 3) == 1)
-			bt = m_newFallBlockRand.Rand() % 7;
-		m_fallBlock.Block((BlockType)((int)BlockType::IBlock + bt));
+		auto bt = m_newFallBlockRand.GetNewBlock();
+		m_fallBlock.Block(bt);
 		m_fallBlock.Dir(0);
 	}
 	else
@@ -689,11 +678,8 @@ std::pair<int, int> PlayTetris::GetNextFallBlock(int index) const
 {
 	while (m_newFallBlockInfo.size() < 3)
 	{
-		int bt = m_newFallBlockRand.Rand() % 7;
-		if (bt == 0 && (m_newFallBlockRand.Rand() % 3) == 1)
-			bt = m_newFallBlockRand.Rand() % 7;
 		m_newFallBlockInfo.push_back(std::make_pair(
-			((int)BlockType::IBlock + bt)
+			((int)m_newFallBlockRand.GetNewBlock())
 			, 0));
 	}
 	return m_newFallBlockInfo[index];
@@ -702,12 +688,15 @@ std::pair<int, int> PlayTetris::GetNextFallBlock(int index) const
 void PlayTetris::NewRound()
 {
 	m_newFallBlockInfo.clear();
-	m_newFallBlockRand.SRand(NewFallBlockSeed[0]);// rand() % NewFallBlockSeed.size()]);
+	m_newFallBlockRand.SetSeed(NewFallBlockSeed[0]);// rand() % NewFallBlockSeed.size()]);
 	CleanAllBlock();
 	m_fallSpeedLevel = 1;
 	m_fallSpeedLevelRang = { 1, 15 };
 	m_fallDetal = 0.5f;
 	m_fallBlockCount = 0;
+	m_gameScore = 0;
+	m_cleanLinesCount = 0;
+	m_gameLevel = 1;
 }
 
 void PlayTetris::SetFallLevel(int level)
@@ -741,14 +730,19 @@ void PlayTetris::ProcBlockFallEnd()
 		//需要消除
 		m_fallBlockStatus = BlockPlayStatus::BlockClean;
 		//消除行
+		int lineCount = 0;
 		for (auto line : fullLines)
 		{
 			if (line >= 0)
 			{
 				m_data.DelLine(line);
-				++m_cleanLinesCount;
+				++lineCount;
 			}
 		}
+		m_cleanLinesCount += lineCount;
+		m_gameLevel = m_cleanLinesCount / 10 + 1;
+		m_gameScore += GetCleanLinesScore(m_gameLevel, lineCount);
+		SetFallLevel(m_gameLevel);
 		if (m_observer)
 			m_observer->OnlineClean(fullLines);
 
@@ -757,6 +751,29 @@ void PlayTetris::ProcBlockFallEnd()
 	{
 		m_fallBlockStatus = BlockPlayStatus::BeginOp;
 	}
+}
+
+std::pair<int, int> PlayTetris::GetPreviewFallBlockPos() const
+{
+	int x = m_fallBlockPos.first;
+	int y = m_fallBlockPos.second;
+	int step = 21;
+	int dir = m_fallBlock.Dir();
+	int i = 1;
+	for (; i <= 21; ++i)
+	{
+		if (!IsFallBlockEnablePos(x, y - i, dir))
+		{
+			break;
+		}
+	}
+	--i;
+	if (i > 0)
+	{
+		y -= i;
+	}
+
+	return{x,y};
 }
 
 
@@ -769,4 +786,42 @@ uint32_t MyRand::Rand() const
 {
 	return(((m_r = m_r * 214013L
 		+ 2531011L) >> 16) & 0x7fff);
+}
+
+BlockType BlockGenerator::GetNewBlock()
+{
+	if (m_queue.size() < 7)
+	{
+		//生成数据
+		std::array<BlockType, 8> bb;
+		for (int i = 0; i < bb.size(); ++i)
+		{
+			bb[i] = (BlockType)((int)BlockType::IBlock + m_blockIndex);
+			m_blockIndex = (m_blockIndex + 1) % 7;
+		}
+		for (int i = 0; i < bb.size(); ++i)
+		{
+			int j = m_rand.Rand() % bb.size();
+			if (j  != i)
+			{
+				auto b = bb[i];
+				bb[i] = bb[j];
+				bb[j] = b;
+			}
+		}
+		for (auto b : bb)
+		{
+			m_queue.push( b);
+		}
+
+	}
+	auto b = m_queue.front();
+	m_queue.pop();
+	return b;
+}
+
+void BlockGenerator::SetSeed(uint32_t seed)
+{
+	m_rand.SRand(seed);
+	m_blockIndex = 0;
 }

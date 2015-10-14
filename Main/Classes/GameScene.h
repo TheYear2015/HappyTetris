@@ -102,7 +102,8 @@ private:
 	{
 
 	public:
-		FallBlockSprite(cocos2d::Node* parent);
+		//type 0 普通，1 预览
+		FallBlockSprite(int type, cocos2d::Node* parent);
 
 		~FallBlockSprite();
 
@@ -125,13 +126,14 @@ private:
 		int m_x;
 		int m_y;
 		int m_dir;
+		int m_type = 0;
 		float m_scale = 1.0f;
 		BlockType m_block = BlockType::Empty;
 		cocos2d::Node* m_parent = nullptr;
 
 	};
 
-	//预览下落方块单元
+	//后续将要出现的下落方块单元
 	class NextFallBlockSprite
 	{
 
@@ -160,8 +162,11 @@ private:
 	};
 
 	//下落方块
-	FallBlockSprite* m_fallBlock;
-	
+	FallBlockSprite* m_fallBlock = nullptr;
+
+	//方块下落预览
+	FallBlockSprite* m_previewFallBlock = nullptr;
+
 	cocos2d::Node* m_nextFallBlockRoot = nullptr;
 
 	cocos2d::Node* m_UILayer = nullptr;
