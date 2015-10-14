@@ -271,18 +271,18 @@ void PlayTetrisLayer::OnlineClean(const std::array<int, TetrisData::Height>& lin
 	for (auto i : lines)
 	{
 		if (i < 0)
+		{
 			break;
+		}
 		RemoveLine(i);
 	}
 
 	this->scheduleOnce([&](float dt) { m_logic.FallBlockAfterDel(); }, 0.2f,"fallBlockAfterDel");
 
 	int lineC = m_logic.CleanLinesCount();
-	m_logic.SetFallLevel(lineC / 10 + 1);
-
 	m_scoreLayer->SetCleanLinesCount(lineC);
-	m_scoreLayer->SetGameScore(lineC * 1000);
-	m_scoreLayer->SetSpeedLevel(lineC / 10 + 1);
+	m_scoreLayer->SetGameScore(m_logic.GetGameScore());
+	m_scoreLayer->SetGameLevel(m_logic.GetGameLevel());
 
 }
 
@@ -362,7 +362,7 @@ void PlayTetrisLayer::NewRound()
 	m_logic.ControlNewFallBlock();
 
 	m_scoreLayer->SetGameScore(0);
-	m_scoreLayer->SetSpeedLevel(1);
+	m_scoreLayer->SetGameLevel(1);
 	m_scoreLayer->SetCleanLinesCount(0);
 }
 

@@ -21,7 +21,7 @@ public:
 	void SetFallBlockCount(uint32_t count);
 
 	//设置速度等级
-	void SetSpeedLevel(uint32_t level);
+	void SetGameLevel(uint32_t level);
 
 public:
 	// Here's a difference. Method 'init' in cocos2d-x returns bool, instead of returning 'id' in cocos2d-iphone

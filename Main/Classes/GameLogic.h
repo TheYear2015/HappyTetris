@@ -194,6 +194,12 @@ public:
 	//获得下落的行数
 	int CleanLinesCount() const { return m_cleanLinesCount; }
 
+	//获得游戏分数
+	int GetGameScore() const{ return m_gameScore; }
+
+	//获得游戏等级
+	int GetGameLevel() const { return m_gameLevel; }
+
 public:
 
 	//旋转下落方块
@@ -262,6 +268,12 @@ private:
 
 	//消除的行数
 	int m_cleanLinesCount = 0;
+
+	//游戏分数
+	int m_gameScore = 0;
+
+	//游戏等级
+	int m_gameLevel = 1;
 
 	//出现的方块的个数
 	int m_fallBlockCount = 0;

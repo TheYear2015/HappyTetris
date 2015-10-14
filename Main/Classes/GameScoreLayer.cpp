@@ -61,7 +61,7 @@ void GameScoreLayer::update(float delta)
 	cocos2d::Layer::update(delta);
 }
 
-void GameScoreLayer::SetSpeedLevel(uint32_t level)
+void GameScoreLayer::SetGameLevel(uint32_t level)
 {
 	auto strScore = __String::createWithFormat("%d", level);
 	m_speedLevel->setString(strScore->getCString());

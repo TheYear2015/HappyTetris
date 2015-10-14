@@ -367,6 +367,14 @@ void FallBlock::Dir(int dir)
 	m_blockDir = dir % 4;
 }
 
+
+//消除每行的分数计算
+static int GetCleanLinesScore(int level, int linesCount)
+{
+	const int lC[] = { 1, 3, 5, 8 };
+	return 40 * level*lC[linesCount - 1];
+}
+
 PlayTetris::PlayTetris()
 {
 
@@ -703,6 +711,9 @@ void PlayTetris::NewRound()
 	m_fallSpeedLevelRang = { 1, 15 };
 	m_fallDetal = 0.5f;
 	m_fallBlockCount = 0;
+	m_gameScore = 0;
+	m_cleanLinesCount = 0;
+	m_gameLevel = 1;
 }
 
 void PlayTetris::SetFallLevel(int level)
@@ -736,14 +747,19 @@ void PlayTetris::ProcBlockFallEnd()
 		//需要消除
 		m_fallBlockStatus = BlockPlayStatus::BlockClean;
 		//消除行
+		int lineCount = 0;
 		for (auto line : fullLines)
 		{
 			if (line >= 0)
 			{
 				m_data.DelLine(line);
-				++m_cleanLinesCount;
+				++lineCount;
 			}
 		}
+		m_cleanLinesCount += lineCount;
+		m_gameLevel = m_cleanLinesCount / 10 + 1;
+		m_gameScore += GetCleanLinesScore(m_gameLevel, lineCount);
+		SetFallLevel(m_gameLevel);
 		if (m_observer)
 			m_observer->OnlineClean(fullLines);
 
