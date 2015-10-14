@@ -45,6 +45,8 @@ private:
 	std::queue<BlockType> m_queue;
 
 	MyRand m_rand;
+
+	int m_blockIndex = 0;
 };
 
 

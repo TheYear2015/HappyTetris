@@ -794,10 +794,11 @@ BlockType BlockGenerator::GetNewBlock()
 	if (m_queue.size() < 7)
 	{
 		//生成数据
-		std::array<BlockType,7> bb;
+		std::array<BlockType, 8> bb;
 		for (int i = 0; i < bb.size(); ++i)
 		{
-			bb[i] = (BlockType)((int)BlockType::IBlock + i%7);
+			bb[i] = (BlockType)((int)BlockType::IBlock + m_blockIndex);
+			m_blockIndex = (m_blockIndex + 1) % 7;
 		}
 		for (int i = 0; i < bb.size(); ++i)
 		{
@@ -823,4 +824,5 @@ BlockType BlockGenerator::GetNewBlock()
 void BlockGenerator::SetSeed(uint32_t seed)
 {
 	m_rand.SRand(seed);
+	m_blockIndex = 0;
 }
