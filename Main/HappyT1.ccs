@@ -15,7 +15,6 @@
           <Project Name="UILayer.csd" Type="Layer" />
         </Folder>
         <Folder Name="img">
-          <Image Name="HelloWorld.png" />
           <Image Name="pic.png" />
           <Image Name="red_t.png" />
           <Image Name="y_t.png" />
