@@ -173,7 +173,6 @@ void PlayTetrisLayer::onKeyPressed(cocos2d::EventKeyboard::KeyCode keyCode, coco
         {
             //旋转
             m_logic.TurnFallBlock();
-
         }
         break;
     }
@@ -238,12 +237,25 @@ bool PlayTetrisLayer::init()
     btn->addTouchEventListener(CC_CALLBACK_2(PlayTetrisLayer::TouchEvent, this));
     btn = dynamic_cast<ui::Button*>(m_UILayer->getChildByName("RightMove"));
     btn->addTouchEventListener(CC_CALLBACK_2(PlayTetrisLayer::TouchEvent, this));
+	btn = dynamic_cast<ui::Button*>(m_UILayer->getChildByName("DownMove"));
+	btn->addTouchEventListener(CC_CALLBACK_2(PlayTetrisLayer::TouchEvent, this));
+	btn = dynamic_cast<ui::Button*>(m_UILayer->getChildByName("FallMove"));
+	btn->addTouchEventListener(CC_CALLBACK_2(PlayTetrisLayer::TouchEvent, this));
 
 
     auto listenerKeyboard = EventListenerKeyboard::create();
     listenerKeyboard->onKeyPressed = CC_CALLBACK_2(PlayTetrisLayer::onKeyPressed, this);
     listenerKeyboard->onKeyReleased = CC_CALLBACK_2(PlayTetrisLayer::onKeyReleased, this);
     _eventDispatcher->addEventListenerWithSceneGraphPriority(listenerKeyboard, this);
+
+
+	auto listener = EventListenerTouchOneByOne::create();
+	listener->onTouchBegan = CC_CALLBACK_2(PlayTetrisLayer::onTouchBegan, this);
+	listener->onTouchMoved = CC_CALLBACK_2(PlayTetrisLayer::onTouchMoved, this);
+	listener->onTouchEnded = CC_CALLBACK_2(PlayTetrisLayer::onTouchEnded, this);
+	listener->onTouchCancelled = CC_CALLBACK_2(PlayTetrisLayer::onTouchCancelled, this);
+	listener->setSwallowTouches(true);//不向下传递触摸
+	_eventDispatcher->addEventListenerWithSceneGraphPriority(listener, this);
 
     m_logic.SetObserver(this);
 
@@ -445,6 +457,14 @@ void PlayTetrisLayer::TouchEvent(cocos2d::Ref *pSender, cocos2d::ui::Widget::Tou
         {
             BeginHorMoveInput(1);
         }
+		else if (btn->getName().compare("DownMove") == 0)
+		{
+			m_logic.ControlBlockFall(1);
+		}
+		else if (btn->getName().compare("FallMove") == 0)
+		{
+			m_logic.ControlBlockFall(21);
+		}
 
     }
     break;
@@ -509,6 +529,34 @@ void PlayTetrisLayer::EndHorMoveInput(int i)
     {
         m_holdInput = false;
     }
+}
+
+bool PlayTetrisLayer::onTouchBegan(Touch *touch, Event *unused_event)
+{
+	if (m_logic.IsEnd())
+	{
+		//重新开始
+		NewRound();
+
+	}
+	else
+	{
+		//旋转
+		m_logic.TurnFallBlock();
+	}
+	return true;
+}
+
+void PlayTetrisLayer::onTouchMoved(Touch *touch, Event *unused_event)
+{
+}
+
+void PlayTetrisLayer::onTouchEnded(Touch *touch, Event *unused_event)
+{
+}
+
+void PlayTetrisLayer::onTouchCancelled(Touch *touch, Event *unused_event)
+{
 }
 
 PlayTetrisLayer::FallBlockSprite::FallBlockSprite(int type, cocos2d::Node* parent)
