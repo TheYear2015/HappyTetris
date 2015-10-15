@@ -42,6 +42,9 @@ public:
 
 	virtual void update(float delta) override;
 
+	void TouchEvent(cocos2d::Ref *pSender, cocos2d::ui::Widget::TouchEventType type);
+
+
 private:
 	PlayTetris m_logic;
 
@@ -50,7 +53,11 @@ private:
 
 	virtual void onKeyPressed(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event* event) override;
 
+	void BeginHorMoveInput(int i);
+
 	virtual void onKeyReleased(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event* event) override;
+
+	void EndHorMoveInput(int i);
 
 	void SetFallBlockDir(int dir, bool isToEnd = false);
 
