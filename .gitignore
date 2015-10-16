@@ -1,6 +1,10 @@
 *.opensdf
 *.sdf
 /Main/proj.win32/Debug.win32
+/Main/proj.android/obj
+/Main/proj.android/assets
+/Main/proj.android/bin
+/Main/proj.android/gen
+/Main/proj.android/libs
 *.suo
-Main/HappyT1.udf
-Main/HappyT1.udf
+/Main/HappyT1.udf
