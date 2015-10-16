@@ -16,7 +16,7 @@
             <PreSize X="0.0016" Y="0.0010" />
             <FileData Type="Normal" Path="scene/Bk01.csd" Plist="" />
           </AbstractNodeData>
-          <AbstractNodeData Name="Root" ActionTag="225417804" Tag="17" IconVisible="True" LeftMargin="160.0000" RightMargin="480.0000" TopMargin="800.0000" BottomMargin="160.0000" ctype="SingleNodeObjectData">
+          <AbstractNodeData Name="Root" ActionTag="225417804" Tag="17" IconVisible="True" LeftMargin="76.0000" RightMargin="564.0000" TopMargin="752.0000" BottomMargin="208.0000" ctype="SingleNodeObjectData">
             <Size X="0.0000" Y="0.0000" />
             <Children>
               <AbstractNodeData Name="BK" ActionTag="-1749843769" Alpha="230" Tag="31" IconVisible="False" RightMargin="-320.0000" TopMargin="-640.0000" Scale9Width="32" Scale9Height="32" ctype="ImageViewObjectData">
@@ -31,10 +31,10 @@
               </AbstractNodeData>
             </Children>
             <AnchorPoint />
-            <Position X="160.0000" Y="160.0000" />
-            <Scale ScaleX="1.0000" ScaleY="1.0000" />
+            <Position X="76.0000" Y="208.0000" />
+            <Scale ScaleX="1.2000" ScaleY="1.2000" />
             <CColor A="255" R="255" G="255" B="255" />
-            <PrePosition X="0.2500" Y="0.1667" />
+            <PrePosition X="0.1187" Y="0.2167" />
             <PreSize X="0.0000" Y="0.0000" />
           </AbstractNodeData>
         </Children>

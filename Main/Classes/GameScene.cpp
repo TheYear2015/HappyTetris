@@ -233,13 +233,18 @@ bool PlayTetrisLayer::init()
 
     m_UILayer = CSLoader::createNode("scene/UILayer.csb");
     addChild(m_UILayer);
-    auto btn = dynamic_cast<ui::Button*>(m_UILayer->getChildByName("LeftMove"));
+
+	size = cocos2d::Director::getInstance()->getVisibleSize();
+	m_UILayer->setContentSize(size);
+
+	auto r = m_UILayer->getChildByName("CtrlRoot");
+    auto btn = dynamic_cast<ui::Button*>(r->getChildByName("LeftMove"));
     btn->addTouchEventListener(CC_CALLBACK_2(PlayTetrisLayer::TouchEvent, this));
-    btn = dynamic_cast<ui::Button*>(m_UILayer->getChildByName("RightMove"));
+    btn = dynamic_cast<ui::Button*>(r->getChildByName("RightMove"));
     btn->addTouchEventListener(CC_CALLBACK_2(PlayTetrisLayer::TouchEvent, this));
-	btn = dynamic_cast<ui::Button*>(m_UILayer->getChildByName("DownMove"));
+	btn = dynamic_cast<ui::Button*>(r->getChildByName("DownMove"));
 	btn->addTouchEventListener(CC_CALLBACK_2(PlayTetrisLayer::TouchEvent, this));
-	btn = dynamic_cast<ui::Button*>(m_UILayer->getChildByName("FallMove"));
+	btn = dynamic_cast<ui::Button*>(r->getChildByName("FallMove"));
 	btn->addTouchEventListener(CC_CALLBACK_2(PlayTetrisLayer::TouchEvent, this));
 
 
