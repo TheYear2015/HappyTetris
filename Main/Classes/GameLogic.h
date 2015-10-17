@@ -200,6 +200,10 @@ public:
 	//获得游戏等级
 	int GetGameLevel() const { return m_gameLevel; }
 
+	//本局进行的时间
+	uint32_t GetGamePlayMS() const { return m_gamePlayMS; }
+
+
 public:
 
 	//旋转下落方块
@@ -277,6 +281,9 @@ private:
 
 	//出现的方块的个数
 	int m_fallBlockCount = 0;
+
+	//本局进行的时间
+	uint32_t m_gamePlayMS = 0;
 
 	float m_fallDetal = 0.5f;
 

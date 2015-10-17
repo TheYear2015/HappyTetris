@@ -555,6 +555,14 @@ void PlayTetris::BeginCleanFullLines()
 
 void PlayTetris::Frame(float delta)
 {
+
+	if (m_fallBlockStatus == BlockPlayStatus::Op
+		|| m_fallBlockStatus == BlockPlayStatus::BlockFallEnd
+		|| m_fallBlockStatus == BlockPlayStatus::BeginOp)
+	{
+		m_gamePlayMS += (delta * 1000);
+	}
+
 	//ÏÂÂä¿ØÖÆ
 	m_fallRunTime += delta;
 	if (m_fallBlockStatus == BlockPlayStatus::BlockFallEnd)
@@ -697,6 +705,7 @@ void PlayTetris::NewRound()
 	m_gameScore = 0;
 	m_cleanLinesCount = 0;
 	m_gameLevel = 1;
+	m_gamePlayMS = 0;
 }
 
 void PlayTetris::SetFallLevel(int level)
