@@ -212,21 +212,14 @@ bool PlayTetrisLayer::init()
     m_previewFallBlock = new FallBlockSprite(1, m_rootNode);
     m_fallBlock = new FallBlockSprite(0, m_rootNode);
 
-    m_nextFallBlockRoot = CSLoader::createNode("scene/NextFallBlockLayer.csb");
-    addChild(m_nextFallBlockRoot);
-    m_nextFallBlockRoot->setPosition(0, 0);
+	m_nextFallBlock[0] = new NextFallBlockSprite(n->getChildByName("Next1"));
+    m_nextFallBlock[0]->SetPosition(0,0);
 
-    m_nextFallBlock[0] = new NextFallBlockSprite(m_nextFallBlockRoot);
-    m_nextFallBlock[0]->SetPosition(9.5f * BLOCK_SIZE + BLOCK_CENTER, 850);
-    m_nextFallBlock[0]->SetScale(1.0f);
+	m_nextFallBlock[1] = new NextFallBlockSprite(n->getChildByName("Next2"));
+    m_nextFallBlock[1]->SetPosition(0, 0);
 
-    m_nextFallBlock[1] = new NextFallBlockSprite(m_nextFallBlockRoot);
-    m_nextFallBlock[1]->SetPosition(200, 850);
-    m_nextFallBlock[1]->SetScale(0.7f);
-
-    m_nextFallBlock[2] = new NextFallBlockSprite(m_nextFallBlockRoot);
-    m_nextFallBlock[2]->SetPosition(80, 850);
-    m_nextFallBlock[2]->SetScale(0.7f);
+	m_nextFallBlock[2] = new NextFallBlockSprite(n->getChildByName("Next3"));
+    m_nextFallBlock[2]->SetPosition(0, 0);
 
     m_scoreLayer = GameScoreLayer::create();
     addChild(m_scoreLayer);
