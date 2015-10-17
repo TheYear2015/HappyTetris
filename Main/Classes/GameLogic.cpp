@@ -150,25 +150,25 @@ const FallBlock::BlockData& FallBlock::GetBlockData(BlockType block, int dir)
 		{
 			auto& c = BlockSet[BlockType::OBlock];
 			//
-			c[0][0] = { 0, 1 };
+			c[0][0] = { 0, -1 };
 			c[0][1] = { 0, 0 };
 			c[0][2] = { 1, 0 };
-			c[0][3] = { 1, 1 };
+			c[0][3] = { 1, -1 };
 			//
-			c[1][0] = { 0, 1 };
+			c[1][0] = { 0, -1 };
 			c[1][1] = { 0, 0 };
 			c[1][2] = { 1, 0 };
-			c[1][3] = { 1, 1 };
+			c[1][3] = { 1, -1 };
 			//
-			c[2][0] = { 0, 1 };
+			c[2][0] = { 0, -1 };
 			c[2][1] = { 0, 0 };
 			c[2][2] = { 1, 0 };
-			c[2][3] = { 1, 1 };
+			c[2][3] = { 1, -1 };
 			//
-			c[3][0] = { 0, 1 };
+			c[3][0] = { 0, -1 };
 			c[3][1] = { 0, 0 };
 			c[3][2] = { 1, 0 };
-			c[3][3] = { 1, 1 };
+			c[3][3] = { 1, -1 };
 			//
 			c[4][0] = { 0, 1 };
 			c[4][1] = { 0, 0 };
@@ -502,7 +502,7 @@ void PlayTetris::FallFrame()
 
 void PlayTetris::NewFallBlock()
 {
-	m_fallBlockPos.first = TetrisData::Width / 2;
+	m_fallBlockPos.first = TetrisData::Width / 2 - 1;
 	m_fallBlockPos.second = TetrisData::Height - 1;
 
 	if (m_newFallBlockInfo.empty())
