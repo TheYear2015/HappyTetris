@@ -38,7 +38,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
 		glview->setDesignResolutionSize(640, 960, ResolutionPolicy::SHOW_ALL);
 #else 
-		glview->setDesignResolutionSize(640, 960, ResolutionPolicy::EXACT_FIT);
+		glview->setDesignResolutionSize(640, 960, ResolutionPolic::FIXED_WIDTH);
 #endif
 	}
 
