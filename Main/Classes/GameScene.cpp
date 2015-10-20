@@ -116,6 +116,8 @@ void PlayTetrisLayer::update(float delta)
     //Çý¶¯Âß¼­Ö¡
     m_logic.Frame(delta);
 
+	m_scoreLayer->SetPlayTimeTick(m_logic.GetGamePlayMS()/100);
+
     cocos2d::Layer::update(delta);
 
 }

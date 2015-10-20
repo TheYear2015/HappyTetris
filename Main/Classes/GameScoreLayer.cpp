@@ -49,6 +49,7 @@ bool GameScoreLayer::init()
 	m_speedLevel = dynamic_cast<cocos2d::ui::TextBMFont*>(rootN->getChildByName("SpeedLevel"));
 	m_fallBlockCount = dynamic_cast<cocos2d::ui::TextBMFont*>(rootN->getChildByName("FallBlockCount"));
 	m_cleanLineCount = dynamic_cast<cocos2d::ui::TextBMFont*>(rootN->getChildByName("CleanLineCount"));
+	m_playTimeTick = dynamic_cast<cocos2d::ui::TextBMFont*>(rootN->getChildByName("PlayTimeTick"));
 
 	addChild(rootN);
 
@@ -66,4 +67,11 @@ void GameScoreLayer::SetGameLevel(uint32_t level)
 	auto strScore = __String::createWithFormat("%d", level);
 	m_speedLevel->setString(strScore->getCString());
 	
+}
+
+void GameScoreLayer::SetPlayTimeTick(uint32_t ticks)
+{
+	auto strTicks = __String::createWithFormat("%d", ticks);
+	m_playTimeTick->setString(strTicks->getCString());
+
 }
