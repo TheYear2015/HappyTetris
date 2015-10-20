@@ -170,7 +170,6 @@ void PlayTetrisLayer::onKeyPressed(cocos2d::EventKeyboard::KeyCode keyCode, coco
 		{
 			//Ë¢ÐÂ½çÃæ
 			UpdateBlockHub();
-			SetFallBlockType(m_logic.GetFallBlock());
 		}
 	}
 		break;
@@ -592,6 +591,15 @@ void PlayTetrisLayer::SetFallBlockType(BlockType block)
 	m_fallBlock->Begin();
 	m_previewFallBlock->SetBlockType(block);
 	m_previewFallBlock->Begin();
+}
+
+void PlayTetrisLayer::OnResetFallBlock(BlockType block, int dir, int x, int y)
+{
+	SetFallBlockType(block);
+	m_previewFallBlock->SetDir(dir);
+	m_fallBlock->SetDir(dir);
+	OnBlockMove(x, y);
+
 }
 
 PlayTetrisLayer::FallBlockSprite::FallBlockSprite(int type, cocos2d::Node* parent)

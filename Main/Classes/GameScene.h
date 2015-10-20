@@ -51,9 +51,6 @@ private:
 
 	virtual void onKeyPressed(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event* event) override;
 
-	void UpdateBlockHub();
-
-
 	virtual void onKeyReleased(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event* event) override;
 
 	virtual bool onTouchBegan(cocos2d::Touch *touch, cocos2d::Event *unused_event) override;
@@ -92,7 +89,7 @@ public:
 
 	virtual void OnNewBlock(BlockType block, int dir, int x, int y) override;
 
-	void SetFallBlockType(BlockType block);
+	virtual void OnResetFallBlock(BlockType block, int dir, int x, int y) override;
 
 	virtual void OnBlockMove(int x, int y) override;
 
@@ -111,6 +108,10 @@ private:
 	void RemoveAllBlock();
 
 	void DeleteBlockSprite(cocos2d::Node*);
+
+	void SetFallBlockType(BlockType block);
+
+	void UpdateBlockHub();
 
 private:
 	//所有方块的root

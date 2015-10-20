@@ -158,6 +158,9 @@ public:
 	//生成新的方块
 	virtual void OnNewBlock(BlockType block, int dir, int x, int y) = 0;
 
+	//Reset下落方块
+	virtual void OnResetFallBlock(BlockType block, int dir, int x, int y) = 0;
+
 	//方块移动
 	virtual void OnBlockMove(int x, int y) = 0;
 
@@ -209,11 +212,17 @@ public:
 	//获得hold住的方块
 	BlockType GetHoldBlock() const { return m_holdBlock; }
 
+	//能否hold住方块
+	bool EnableHoldBlock() const;
+
 	//hold住当前的方块
 	bool HoldBlock();
 
 	//获得下落方块的类型
 	BlockType GetFallBlock() const;
+
+	//重置下落方块
+	void ResetFallBlock(BlockType block);
 
 public:
 
@@ -266,8 +275,11 @@ private:
 	//静止的方块的数据
 	TetrisData m_data;
 
-	//保存的方块
+	//Hold的方块
 	BlockType m_holdBlock = BlockType::Empty;
+
+	//能否Hold方块
+	bool m_enableHoldBlock = false;
 
 	//是否下落到底部
 	bool IsFallOnEnd() const;

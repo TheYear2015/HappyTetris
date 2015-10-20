@@ -547,6 +547,7 @@ void PlayTetris::NewFallBlock()
 	}
 	++m_fallBlockCount;
 	m_fallBlock.Moved(false);
+	m_enableHoldBlock = true;
 	if (m_observer)
 		m_observer->OnNewBlock(m_fallBlock.Block(), m_fallBlock.Dir(), m_fallBlockPos.first, m_fallBlockPos.second);
 
@@ -800,7 +801,7 @@ bool PlayTetris::HoldBlock()
 	if (m_fallBlock.Block() == BlockType::Empty)
 		return false;
 
-	if (m_fallBlock.Moved())
+	if (!m_enableHoldBlock)
 		return false;
 
 	if (m_holdBlock == BlockType::Empty)
@@ -812,9 +813,10 @@ bool PlayTetris::HoldBlock()
 	{
 		auto p = m_holdBlock;
 		m_holdBlock = m_fallBlock.Block();
-		m_fallBlock.Block(p);
+		ResetFallBlock(p);
 	}
 
+	m_enableHoldBlock = false;
 	m_fallBlock.Moved(true);
 
 	return true;
@@ -826,6 +828,23 @@ BlockType PlayTetris::GetFallBlock() const
 	return m_fallBlock.Block();
 }
 
+bool PlayTetris::EnableHoldBlock() const
+{
+	return m_enableHoldBlock;
+}
+
+void PlayTetris::ResetFallBlock(BlockType block)
+{
+	m_fallBlockPos.first = TetrisData::Width / 2 - 1;
+	m_fallBlockPos.second = TetrisData::Height - 1;
+
+	m_fallBlock.Block(block);
+	m_fallBlock.Dir(0);
+	m_fallBlock.Moved(false);
+	if (m_observer)
+		m_observer->OnResetFallBlock(m_fallBlock.Block(), m_fallBlock.Dir(), m_fallBlockPos.first, m_fallBlockPos.second);
+
+}
 
 void MyRand::SRand(uint32_t s)
 {
