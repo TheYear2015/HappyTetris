@@ -263,6 +263,9 @@ private:
 	//下落方块是否可以出现在指定的位置
 	bool IsFallBlockEnablePos(int x, int y, int dir) const;
 
+	//能否操作下落方块
+	bool IsEnableOpFallBlock() const;
+
 	//下落方块的状态
 	BlockPlayStatus m_fallBlockStatus = BlockPlayStatus::BeginOp;
 

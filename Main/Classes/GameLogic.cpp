@@ -403,7 +403,7 @@ void PlayTetris::FallEnd()
 
 void PlayTetris::TurnFallBlock()
 {
-	if (m_fallBlockStatus == BlockPlayStatus::Op)
+	if (IsEnableOpFallBlock())
 	{
 		//判断是否能旋转
 		int newDir = m_fallBlock.Dir() + 1;
@@ -575,10 +575,22 @@ void PlayTetris::Frame(float delta)
 	m_fallRunTime += delta;
 	if (m_fallBlockStatus == BlockPlayStatus::BlockFallEnd)
 	{
-		if (m_fallRunTime >= m_fallEndDetal)
+		if (!IsFallOnEnd())
+		{//可下落继续下落
+			m_fallBlockStatus = BlockPlayStatus::Op;
+			if (m_fallRunTime >= m_fallDetal)
+			{
+				FallFrame();
+				m_fallRunTime -= m_fallDetal;
+			}
+		}
+		else
 		{
-			ProcBlockFallEnd();
-			m_fallRunTime -= m_fallEndDetal;
+			if (m_fallRunTime >= m_fallEndDetal)
+			{
+				ProcBlockFallEnd();
+				m_fallRunTime -= m_fallEndDetal;
+			}
 		}
 	}
 	else
@@ -634,7 +646,7 @@ bool PlayTetris::IsFallBlockEnablePos(int x, int y, int dir) const
 
 void PlayTetris::MoveBlock(int dir)
 {
-	if (m_fallBlockStatus != BlockPlayStatus::Op)
+	if (!IsEnableOpFallBlock())
 		return;
 
 	int i = 0;
@@ -670,7 +682,7 @@ void PlayTetris::FallBlockAfterDel()
 
 void PlayTetris::ControlBlockFall(int step)
 {
-	if (m_fallBlockStatus == BlockPlayStatus::Op)
+	if (IsEnableOpFallBlock())
 	{
 		BlockFall(step);
 		m_fallRunTime = 0.0f;
@@ -844,6 +856,11 @@ void PlayTetris::ResetFallBlock(BlockType block)
 	if (m_observer)
 		m_observer->OnResetFallBlock(m_fallBlock.Block(), m_fallBlock.Dir(), m_fallBlockPos.first, m_fallBlockPos.second);
 
+}
+
+bool PlayTetris::IsEnableOpFallBlock() const
+{
+	return m_fallBlockStatus == BlockPlayStatus::Op || m_fallBlockStatus == BlockPlayStatus::BlockFallEnd;
 }
 
 void MyRand::SRand(uint32_t s)
