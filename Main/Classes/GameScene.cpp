@@ -170,7 +170,7 @@ void PlayTetrisLayer::onKeyPressed(cocos2d::EventKeyboard::KeyCode keyCode, coco
 		{
 			//Ë¢ÐÂ½çÃæ
 			UpdateBlockHub();
-
+			SetFallBlockType(m_logic.GetFallBlock());
 		}
 	}
 		break;
@@ -338,14 +338,11 @@ void PlayTetrisLayer::OnBlockFallEnd(BlockType block, const std::array<std::pair
 
 void PlayTetrisLayer::OnNewBlock(BlockType block, int dir, int x, int y)
 {
-    m_fallBlock->SetBlockType(block);
-    m_fallBlock->SetDir(dir);
-    m_fallBlock->Begin();
-    m_previewFallBlock->SetBlockType(block);
-    m_previewFallBlock->SetDir(dir);
-    m_previewFallBlock->Begin();
-    OnBlockMove(x,y);
+	SetFallBlockType(block);
 	UpdateBlockHub();
+    m_previewFallBlock->SetDir(dir);
+    m_fallBlock->SetDir(dir);
+	OnBlockMove(x,y);
 }
 
 void PlayTetrisLayer::OnBlockMove(int x, int y)
@@ -587,6 +584,14 @@ void PlayTetrisLayer::UpdateBlockHub()
 			m_nextFallBlock[i]->SetShow(true);
 		}
 	}
+}
+
+void PlayTetrisLayer::SetFallBlockType(BlockType block)
+{
+	m_fallBlock->SetBlockType(block);
+	m_fallBlock->Begin();
+	m_previewFallBlock->SetBlockType(block);
+	m_previewFallBlock->Begin();
 }
 
 PlayTetrisLayer::FallBlockSprite::FallBlockSprite(int type, cocos2d::Node* parent)

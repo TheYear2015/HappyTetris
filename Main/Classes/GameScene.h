@@ -92,6 +92,8 @@ public:
 
 	virtual void OnNewBlock(BlockType block, int dir, int x, int y) override;
 
+	void SetFallBlockType(BlockType block);
+
 	virtual void OnBlockMove(int x, int y) override;
 
 	virtual void OnBlockTurn(int dir) override;

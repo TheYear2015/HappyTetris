@@ -212,6 +212,9 @@ public:
 	//hold住当前的方块
 	bool HoldBlock();
 
+	//获得下落方块的类型
+	BlockType GetFallBlock() const;
+
 public:
 
 	//旋转下落方块

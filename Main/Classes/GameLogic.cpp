@@ -821,6 +821,11 @@ bool PlayTetris::HoldBlock()
 
 }
 
+BlockType PlayTetris::GetFallBlock() const
+{
+	return m_fallBlock.Block();
+}
+
 
 void MyRand::SRand(uint32_t s)
 {
