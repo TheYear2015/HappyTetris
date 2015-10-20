@@ -51,6 +51,8 @@ private:
 
 	virtual void onKeyPressed(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event* event) override;
 
+	void UpdateBlockHub();
+
 
 	virtual void onKeyReleased(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event* event) override;
 
@@ -189,6 +191,9 @@ private:
 
 	//后续需要下落方块
 	std::array<NextFallBlockSprite*, 3> m_nextFallBlock;
+
+	//hold的方块
+	NextFallBlockSprite* m_holdBlock = nullptr;
 
 	//分数显示
 	GameScoreLayer* m_scoreLayer = nullptr;

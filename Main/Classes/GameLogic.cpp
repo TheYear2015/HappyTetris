@@ -338,6 +338,7 @@ BlockType FallBlock::Block() const
 void FallBlock::Block(BlockType b)
 {
 	m_block = b;
+	m_isMoved = false;
 }
 
 int FallBlock::Dir() const
@@ -411,6 +412,7 @@ void PlayTetris::TurnFallBlock()
 		if (rev)
 		{
 			m_fallBlock.Dir(newDir);
+			m_fallBlock.Moved(true);
 			//能旋转
 			if (m_observer)
 				m_observer->OnBlockTurn(m_fallBlock.Dir());
@@ -425,6 +427,7 @@ void PlayTetris::TurnFallBlock()
 			if (rev)
 			{
 				m_fallBlock.Dir(newDir);
+				m_fallBlock.Moved(true);
 				//能旋转
 				if (m_observer)
 					m_observer->OnBlockTurn(m_fallBlock.Dir());
@@ -442,6 +445,7 @@ void PlayTetris::TurnFallBlock()
 			if (rev)
 			{
 				m_fallBlock.Dir(newDir);
+				m_fallBlock.Moved(true);
 				//能旋转
 				if (m_observer)
 					m_observer->OnBlockTurn(m_fallBlock.Dir());
@@ -459,6 +463,7 @@ void PlayTetris::TurnFallBlock()
 			if (rev)
 			{
 				m_fallBlock.Dir(newDir);
+				m_fallBlock.Moved(true);
 				//能旋转
 				if (m_observer)
 					m_observer->OnBlockTurn(m_fallBlock.Dir());
@@ -489,6 +494,7 @@ void PlayTetris::FallFrame()
 		if (IsFallOnEnd())
 		{
 			m_fallBlockStatus = BlockPlayStatus::BlockFallEnd;
+			m_fallBlock.Moved(true);
 			break;
 		}
 		else
@@ -540,6 +546,7 @@ void PlayTetris::NewFallBlock()
 
 	}
 	++m_fallBlockCount;
+	m_fallBlock.Moved(false);
 	if (m_observer)
 		m_observer->OnNewBlock(m_fallBlock.Block(), m_fallBlock.Dir(), m_fallBlockPos.first, m_fallBlockPos.second);
 
@@ -605,6 +612,7 @@ void PlayTetris::BlockFall(int step)
 	if (i > 0)
 	{
 		m_fallBlockPos.second -= i;
+		m_fallBlock.Moved(true);
 		if (m_observer)
 			m_observer->OnBlockMove(m_fallBlockPos.first, m_fallBlockPos.second);
 	}
@@ -644,6 +652,7 @@ void PlayTetris::MoveBlock(int dir)
 		{
 			//能水平位移
 			m_fallBlockPos.first += i;
+			m_fallBlock.Moved(true);
 			if (m_observer)
 				m_observer->OnBlockMove(m_fallBlockPos.first, m_fallBlockPos.second);
 		}
@@ -696,6 +705,7 @@ std::pair<int, int> PlayTetris::GetNextFallBlock(int index) const
 void PlayTetris::NewRound()
 {
 	m_newFallBlockInfo.clear();
+	m_holdBlock = BlockType::Empty;
 	m_newFallBlockRand.SetSeed(NewFallBlockSeed[0]);// rand() % NewFallBlockSeed.size()]);
 	CleanAllBlock();
 	m_fallSpeedLevel = 1;
@@ -783,6 +793,32 @@ std::pair<int, int> PlayTetris::GetPreviewFallBlockPos() const
 	}
 
 	return{x,y};
+}
+
+bool PlayTetris::HoldBlock()
+{
+	if (m_fallBlock.Block() == BlockType::Empty)
+		return false;
+
+	if (m_fallBlock.Moved())
+		return false;
+
+	if (m_holdBlock == BlockType::Empty)
+	{
+		m_holdBlock = m_fallBlock.Block();
+		NewFallBlock();
+	}
+	else
+	{
+		auto p = m_holdBlock;
+		m_holdBlock = m_fallBlock.Block();
+		m_fallBlock.Block(p);
+	}
+
+	m_fallBlock.Moved(true);
+
+	return true;
+
 }
 
 

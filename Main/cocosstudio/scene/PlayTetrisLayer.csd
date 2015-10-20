@@ -64,6 +64,15 @@
             <PrePosition X="0.6906" Y="0.9010" />
             <PreSize X="0.0000" Y="0.0000" />
           </AbstractNodeData>
+          <AbstractNodeData Name="HoldBlock" ActionTag="1025580400" Tag="18" IconVisible="True" LeftMargin="48.0005" RightMargin="591.9995" TopMargin="100.0001" BottomMargin="859.9999" ctype="SingleNodeObjectData">
+            <Size X="0.0000" Y="0.0000" />
+            <AnchorPoint />
+            <Position X="48.0005" Y="859.9999" />
+            <Scale ScaleX="0.8500" ScaleY="0.8500" />
+            <CColor A="255" R="255" G="255" B="255" />
+            <PrePosition X="0.0750" Y="0.8958" />
+            <PreSize X="0.0000" Y="0.0000" />
+          </AbstractNodeData>
         </Children>
       </ObjectData>
     </Content>

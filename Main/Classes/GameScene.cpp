@@ -94,6 +94,7 @@ PlayTetrisLayer::~PlayTetrisLayer()
 {
     delete m_fallBlock;
     delete m_previewFallBlock;
+	delete m_holdBlock;
     for (auto n : m_nextFallBlock)
     {
         delete n;
@@ -163,7 +164,17 @@ void PlayTetrisLayer::onKeyPressed(cocos2d::EventKeyboard::KeyCode keyCode, coco
         event->stopPropagation();
         m_logic.ControlBlockFall(1);
         break;
-    case cocos2d::EventKeyboard::KeyCode::KEY_SPACE:
+	case cocos2d::EventKeyboard::KeyCode::KEY_Z:
+	{
+		if (m_logic.HoldBlock())
+		{
+			//刷新界面
+			UpdateBlockHub();
+
+		}
+	}
+		break;
+	case cocos2d::EventKeyboard::KeyCode::KEY_SPACE:
         event->stopPropagation();
         if (m_logic.IsEnd())
         {
@@ -222,6 +233,9 @@ bool PlayTetrisLayer::init()
 
 	m_nextFallBlock[2] = new NextFallBlockSprite(n->getChildByName("Next3"));
     m_nextFallBlock[2]->SetPosition(0, 0);
+
+	m_holdBlock = new NextFallBlockSprite(n->getChildByName("HoldBlock"));
+	m_holdBlock->SetPosition(0, 0);
 
     m_scoreLayer = GameScoreLayer::create();
     addChild(m_scoreLayer);
@@ -331,21 +345,7 @@ void PlayTetrisLayer::OnNewBlock(BlockType block, int dir, int x, int y)
     m_previewFallBlock->SetDir(dir);
     m_previewFallBlock->Begin();
     OnBlockMove(x,y);
-
-	if (m_logic.IsEnd())
-	{
-		m_nextFallBlock[0]->SetShow(false);
-	}
-	else
-	{
-		for (int i = 0; i < 3; ++i)
-		{
-			auto d = m_logic.GetNextFallBlock(i);
-			m_nextFallBlock[i]->SetBlockType((BlockType)d.first);
-			m_nextFallBlock[i]->SetDir();
-			m_nextFallBlock[i]->SetShow(true);
-		}
-	}
+	UpdateBlockHub();
 }
 
 void PlayTetrisLayer::OnBlockMove(int x, int y)
@@ -367,6 +367,7 @@ void PlayTetrisLayer::NewRound()
     //清除以前的数据
     RemoveAllBlock();
     m_logic.NewRound();
+	m_holdBlock->SetBlockType(BlockType::Empty);
 
     //生成随机方块，该步骤可以没有
     m_logic.ControlNewFallBlock();
@@ -568,6 +569,26 @@ void PlayTetrisLayer::onTouchCancelled(Touch *touch, Event *unused_event)
 {
 }
 
+void PlayTetrisLayer::UpdateBlockHub()
+{
+	m_holdBlock->SetBlockType(m_logic.GetHoldBlock());
+	m_holdBlock->SetDir();
+	if (m_logic.IsEnd())
+	{
+		m_nextFallBlock[0]->SetShow(false);
+	}
+	else
+	{
+		for (int i = 0; i < 3; ++i)
+		{
+			auto d = m_logic.GetNextFallBlock(i);
+			m_nextFallBlock[i]->SetBlockType((BlockType)d.first);
+			m_nextFallBlock[i]->SetDir();
+			m_nextFallBlock[i]->SetShow(true);
+		}
+	}
+}
+
 PlayTetrisLayer::FallBlockSprite::FallBlockSprite(int type, cocos2d::Node* parent)
     :m_parent(parent)
     , m_type(type)
@@ -668,9 +689,11 @@ void PlayTetrisLayer::NextFallBlockSprite::SetDir()
     for (int i = 0; i < 4; ++i)
     {
         auto n = m_root->getChildByTag(i + 1);
-        n->setPosition(BLOCK_POS_X_2_PX(d[i].first), BLOCK_POS_Y_2_PY(d[i].second));
+		if (n)
+			n->setPosition(BLOCK_POS_X_2_PX(d[i].first), BLOCK_POS_Y_2_PY(d[i].second));
         n = m_root->getChildByTag(i + 11);
-        n->setPosition(BLOCK_POS_X_2_PX(d[i].first) + 5, BLOCK_POS_Y_2_PY(d[i].second) + 5);
+		if (n)
+			n->setPosition(BLOCK_POS_X_2_PX(d[i].first) + 5, BLOCK_POS_Y_2_PY(d[i].second) + 5);
     }
 }
 
@@ -681,18 +704,21 @@ void PlayTetrisLayer::NextFallBlockSprite::SetBlockType(BlockType block)
         m_block = block;
         m_root->removeAllChildren();
 
-        auto sp = CreateBlockAndShadow (block);
-        m_root->addChild(sp[0], 0, 1);
-        m_root->addChild(sp[1], 0, 11);
-        sp = CreateBlockAndShadow (block);
-        m_root->addChild(sp[0], 0, 2);
-        m_root->addChild(sp[1], 0, 12);
-        sp = CreateBlockAndShadow (block);
-        m_root->addChild(sp[0], 0, 3);
-        m_root->addChild(sp[1], 0, 13);
-        sp = CreateBlockAndShadow (block);
-        m_root->addChild(sp[0], 0, 4);
-        m_root->addChild(sp[1], 0, 14);
+		if (block != BlockType::Empty)
+		{
+			auto sp = CreateBlockAndShadow(block);
+			m_root->addChild(sp[0], 0, 1);
+			m_root->addChild(sp[1], 0, 11);
+			sp = CreateBlockAndShadow(block);
+			m_root->addChild(sp[0], 0, 2);
+			m_root->addChild(sp[1], 0, 12);
+			sp = CreateBlockAndShadow(block);
+			m_root->addChild(sp[0], 0, 3);
+			m_root->addChild(sp[1], 0, 13);
+			sp = CreateBlockAndShadow(block);
+			m_root->addChild(sp[0], 0, 4);
+			m_root->addChild(sp[1], 0, 14);
+		}
     }
 }
 

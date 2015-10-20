@@ -125,6 +125,8 @@ public:
 	void Block(BlockType b);
 	int Dir() const;
 	void Dir(int dir);
+	bool Moved() const { return m_isMoved; }
+	void Moved(bool val) { m_isMoved = val; }
 	//获得方块的形状数据
 	const BlockData& GetBlockData() const;
 	const BlockData& GetBlockData(int dir) const;
@@ -137,7 +139,8 @@ private:
 	BlockType m_block = BlockType::IBlock;
 	//方块的方向 上左下右 逆时针(0,1,2,3)
 	int m_blockDir = 0;
-
+	//是否移动过
+	bool m_isMoved = false;
 };
 
 class PlayTetrisObserver
@@ -203,6 +206,11 @@ public:
 	//本局进行的时间
 	uint32_t GetGamePlayMS() const { return m_gamePlayMS; }
 
+	//获得hold住的方块
+	BlockType GetHoldBlock() const { return m_holdBlock; }
+
+	//hold住当前的方块
+	bool HoldBlock();
 
 public:
 
@@ -254,6 +262,9 @@ private:
 
 	//静止的方块的数据
 	TetrisData m_data;
+
+	//保存的方块
+	BlockType m_holdBlock = BlockType::Empty;
 
 	//是否下落到底部
 	bool IsFallOnEnd() const;
