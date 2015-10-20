@@ -71,7 +71,7 @@ void GameScoreLayer::SetGameLevel(uint32_t level)
 
 void GameScoreLayer::SetPlayTimeTick(uint32_t ticks)
 {
-	auto strTicks = __String::createWithFormat("%d", ticks);
+	auto strTicks = __String::createWithFormat("%d:%02d:%02d", ticks/6000, (ticks/100)%60, ticks%100);
 	m_playTimeTick->setString(strTicks->getCString());
 
 }
