@@ -168,6 +168,8 @@ private:
 
 		void SetScale(float scale);
 
+		void SetShow(bool isShow);
+
 	private:
 		cocos2d::Node* m_root = nullptr;
 		int m_x;

@@ -330,12 +330,20 @@ void PlayTetrisLayer::OnNewBlock(BlockType block, int dir, int x, int y)
     m_previewFallBlock->Begin();
     OnBlockMove(x,y);
 
-    for (int i = 0; i < 3; ++i)
-    {
-        auto d = m_logic.GetNextFallBlock(i);
-        m_nextFallBlock[i]->SetBlockType((BlockType)d.first);
-        m_nextFallBlock[i]->SetDir();
-    }
+	if (m_logic.IsEnd())
+	{
+		m_nextFallBlock[0]->SetShow(false);
+	}
+	else
+	{
+		for (int i = 0; i < 3; ++i)
+		{
+			auto d = m_logic.GetNextFallBlock(i);
+			m_nextFallBlock[i]->SetBlockType((BlockType)d.first);
+			m_nextFallBlock[i]->SetDir();
+			m_nextFallBlock[i]->SetShow(true);
+		}
+	}
 }
 
 void PlayTetrisLayer::OnBlockMove(int x, int y)
@@ -413,6 +421,7 @@ void PlayTetrisLayer::RemoveLine(int line)
 
 void PlayTetrisLayer::OnNewBlockFailed()
 {
+	//ÓÎÏ·½áÊø
 }
 
 void PlayTetrisLayer::RemoveAllBlock()
@@ -688,4 +697,9 @@ void PlayTetrisLayer::NextFallBlockSprite::SetBlockType(BlockType block)
 void PlayTetrisLayer::NextFallBlockSprite::SetScale(float scale)
 {
     m_root->setScale(scale);
+}
+
+void PlayTetrisLayer::NextFallBlockSprite::SetShow(bool isShow)
+{
+	m_root->setVisible(isShow);
 }
