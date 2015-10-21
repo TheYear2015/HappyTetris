@@ -295,7 +295,7 @@ void PlayTetrisLayer::OnlineClean(const std::array<int, TetrisData::Height>& lin
     }, 0.2f,"fallBlockAfterDel");
 
     int lineC = m_logic.CleanLinesCount();
-    m_scoreLayer->SetCleanLinesCount(lineC);
+	m_scoreLayer->SetCleanLinesCount(lineC, m_logic.GetNextLevelCleanLinesCount());
     m_scoreLayer->SetGameScore(m_logic.GetGameScore());
     m_scoreLayer->SetGameLevel(m_logic.GetGameLevel());
 
@@ -370,7 +370,7 @@ void PlayTetrisLayer::NewRound()
 
     m_scoreLayer->SetGameScore(0);
     m_scoreLayer->SetGameLevel(1);
-    m_scoreLayer->SetCleanLinesCount(0);
+	m_scoreLayer->SetCleanLinesCount(m_logic.CleanLinesCount(), m_logic.GetNextLevelCleanLinesCount());
 }
 
 void PlayTetrisLayer::SetFallBlockDir(int dir, bool isToEnd)

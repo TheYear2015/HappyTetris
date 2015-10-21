@@ -23,9 +23,9 @@ void GameScoreLayer::SetGameScore(uint32_t score)
 	m_gameSocre->setString(strScore->getCString());
 }
 
-void GameScoreLayer::SetCleanLinesCount(uint32_t count)
+void GameScoreLayer::SetCleanLinesCount(uint32_t count, uint32_t nextLevelCount)
 {
-	auto strScore = __String::createWithFormat("%d", count);
+	auto strScore = __String::createWithFormat("%d/%d", count, nextLevelCount);
 	m_cleanLineCount->setString(strScore->getCString());
 }
 

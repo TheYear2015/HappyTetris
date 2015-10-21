@@ -15,7 +15,7 @@ public:
 	void SetGameScore(uint32_t score);
 
 	//设置已销毁的层数
-	void SetCleanLinesCount(uint32_t count);
+	void SetCleanLinesCount(uint32_t count, uint32_t nextLevelCount);
 
 	//设置已出现的方块的数量
 	void SetFallBlockCount(uint32_t count);

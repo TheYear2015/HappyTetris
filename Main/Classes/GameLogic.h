@@ -197,8 +197,11 @@ public:
 	//设置下落速度等级区间
 	void SetFallLevelRang(int min, int max);
 
-	//获得下落的行数
+	//获得消除的行数
 	int CleanLinesCount() const { return m_cleanLinesCount; }
+
+	//获得下一级的需要清除的行数
+	int GetNextLevelCleanLinesCount() const { return m_gameLevel * 10; };
 
 	//获得游戏分数
 	int GetGameScore() const{ return m_gameScore; }
