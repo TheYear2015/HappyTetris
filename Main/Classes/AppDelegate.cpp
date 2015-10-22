@@ -30,17 +30,17 @@ bool AppDelegate::applicationDidFinishLaunching() {
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
 		glview = GLViewImpl::createWithRect("HappyT1", Rect(0, 0, 640 * 0.6f, 960 * 0.6f));
 #else 
-		glview = GLViewImpl::create("HappyT1");
+		glview = GLViewImpl::createWithRect("HappyT1", Rect(0, 0, 640,960));
 #endif
 		director->setOpenGLView(glview);
 
+	}
 
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
-		glview->setDesignResolutionSize(640, 960, ResolutionPolicy::SHOW_ALL);
+	director->getOpenGLView()->setDesignResolutionSize(640, 960, ResolutionPolicy::FIXED_WIDTH);
 #else 
-		glview->setDesignResolutionSize(640, 960, ResolutionPolicy::FIXED_WIDTH);
+	director->getOpenGLView()->setDesignResolutionSize(640, 960, ResolutionPolicy::FIXED_WIDTH);
 #endif
-	}
 
 	// turn on display FPS
 	director->setDisplayStats(true);

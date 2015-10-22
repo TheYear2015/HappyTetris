@@ -38,11 +38,6 @@ namespace XUtility
 			}
 
 			auto rootNode = cocos2d::CSLoader::createNode(GetSceneCsb());
-
-			auto size = cocos2d::Director::getInstance()->getVisibleSize();
-			rootNode->setContentSize(size);
-			cocos2d::ui::Helper::doLayout(rootNode);
-
 			addChild(rootNode);
 
 			OnSceneInited();
