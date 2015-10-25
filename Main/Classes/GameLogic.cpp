@@ -1,5 +1,6 @@
 #include "GameLogic.h"
 
+static const float FallSpeedDetal = 0.75f;
 
 const std::vector<uint32_t> NewFallBlockSeed =
 {
@@ -731,7 +732,7 @@ void PlayTetris::NewRound()
 	CleanAllBlock();
 	m_fallSpeedLevel = 1;
 	m_fallSpeedLevelRang = { 1, 15 };
-	m_fallDetal = 0.5f;
+	m_fallDetal = FallSpeedDetal;
 	m_fallBlockCount = 0;
 	m_gameScore = 0;
 	m_cleanLinesCount = 0;
@@ -744,8 +745,8 @@ void PlayTetris::SetFallLevel(int level)
 	level = std::max(m_fallSpeedLevelRang.first, level);
 	level = std::min(m_fallSpeedLevelRang.second, level);
 	m_fallSpeedLevel = level;
-
-	m_fallDetal = std::max(0.09f, 0.5f - (level - 1)* 0.0266f);
+	//œ¬¬‰ÀŸ∂»
+	m_fallDetal = std::max(0.09f, FallSpeedDetal - (level - 1)* 0.0266f);
 
 }
 
