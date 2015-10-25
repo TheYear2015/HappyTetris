@@ -401,12 +401,20 @@ void PlayTetris::FallEnd()
 	}
 }
 
-void PlayTetris::TurnFallBlock()
+void PlayTetris::TurnFallBlock(int flag)
 {
 	if (IsEnableOpFallBlock())
 	{
 		//ÅÐ¶ÏÊÇ·ñÄÜÐý×ª
-		int newDir = m_fallBlock.Dir() + 1;
+		int newDir = 0;
+		if (flag == 0)
+		{
+			newDir = (m_fallBlock.Dir() + 1) % 4;
+		}
+		else
+		{
+			newDir = (4 + m_fallBlock.Dir() - 1) % 4;
+		}
 
 		bool rev = IsFallBlockEnablePos(m_fallBlockPos.first, m_fallBlockPos.second, newDir);
 		if (rev)

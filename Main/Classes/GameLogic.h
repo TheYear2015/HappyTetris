@@ -229,8 +229,8 @@ public:
 
 public:
 
-	//旋转下落方块
-	void TurnFallBlock();
+	//旋转下落方块 0 顺时针 1逆时针
+	void TurnFallBlock(int flag);
 
 	//水平移动下落方块
 	void MoveBlock(int dir);

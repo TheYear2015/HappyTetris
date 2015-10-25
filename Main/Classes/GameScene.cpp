@@ -184,7 +184,7 @@ void PlayTetrisLayer::onKeyPressed(cocos2d::EventKeyboard::KeyCode keyCode, coco
         else
         {
             //旋转
-            m_logic.TurnFallBlock();
+            m_logic.TurnFallBlock(0);
         }
         break;
     }
@@ -255,6 +255,30 @@ bool PlayTetrisLayer::init()
 	btn = dynamic_cast<ui::Button*>(r->getChildByName("FallMove"));
 	btn->addTouchEventListener(CC_CALLBACK_2(PlayTetrisLayer::TouchEvent, this));
 
+	btn = dynamic_cast<ui::Button*>(r->getChildByName("TurnRight"));
+	if (btn)
+	{
+		btn->addTouchEventListener(
+			[&](cocos2d::Ref *pSender, cocos2d::ui::Widget::TouchEventType type){
+			if (type == cocos2d::ui::Widget::TouchEventType::BEGAN)
+				m_logic.TurnFallBlock(0);
+		}
+		);
+
+	}
+
+	btn = dynamic_cast<ui::Button*>(r->getChildByName("TurnLeft"));
+	if (btn)
+	{
+		btn->addTouchEventListener(
+			[&](cocos2d::Ref *pSender, cocos2d::ui::Widget::TouchEventType type){
+			if (type == cocos2d::ui::Widget::TouchEventType::BEGAN)
+				m_logic.TurnFallBlock(1);
+		}
+		);
+
+	}
+
 
     auto listenerKeyboard = EventListenerKeyboard::create();
     listenerKeyboard->onKeyPressed = CC_CALLBACK_2(PlayTetrisLayer::onKeyPressed, this);
@@ -262,13 +286,13 @@ bool PlayTetrisLayer::init()
     _eventDispatcher->addEventListenerWithSceneGraphPriority(listenerKeyboard, this);
 
 
-	auto listener = EventListenerTouchOneByOne::create();
-	listener->onTouchBegan = CC_CALLBACK_2(PlayTetrisLayer::onTouchBegan, this);
-	listener->onTouchMoved = CC_CALLBACK_2(PlayTetrisLayer::onTouchMoved, this);
-	listener->onTouchEnded = CC_CALLBACK_2(PlayTetrisLayer::onTouchEnded, this);
-	listener->onTouchCancelled = CC_CALLBACK_2(PlayTetrisLayer::onTouchCancelled, this);
-	listener->setSwallowTouches(true);//不向下传递触摸
-	_eventDispatcher->addEventListenerWithSceneGraphPriority(listener, this);
+// 	auto listener = EventListenerTouchOneByOne::create();
+// 	listener->onTouchBegan = CC_CALLBACK_2(PlayTetrisLayer::onTouchBegan, this);
+// 	listener->onTouchMoved = CC_CALLBACK_2(PlayTetrisLayer::onTouchMoved, this);
+// 	listener->onTouchEnded = CC_CALLBACK_2(PlayTetrisLayer::onTouchEnded, this);
+// 	listener->onTouchCancelled = CC_CALLBACK_2(PlayTetrisLayer::onTouchCancelled, this);
+// 	listener->setSwallowTouches(true);//不向下传递触摸
+// 	_eventDispatcher->addEventListenerWithSceneGraphPriority(listener, this);
 
     m_logic.SetObserver(this);
 
@@ -548,7 +572,7 @@ bool PlayTetrisLayer::onTouchBegan(Touch *touch, Event *unused_event)
 	else
 	{
 		//旋转
-		m_logic.TurnFallBlock();
+		m_logic.TurnFallBlock(0);
 	}
 	return true;
 }
