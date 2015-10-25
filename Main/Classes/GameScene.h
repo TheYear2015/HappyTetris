@@ -30,6 +30,7 @@ public:
 	//一局结束
 	void EndRound();
 
+	//产生新的方块
 	void NewFallBlock(float);
 	
 
