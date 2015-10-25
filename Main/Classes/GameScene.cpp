@@ -70,8 +70,8 @@ std::array<cocos2d::Sprite*, 2> CreateBlockAndShadow(BlockType block, cocos2d::N
 // button->addTouchEventListener(CC_CALLBACK_2(UIComponentTest::touchEvent, this));
 
 
-#define BLOCK_SIZE 32
-#define BLOCK_CENTER 16
+#define BLOCK_SIZE 37
+#define BLOCK_CENTER 18.5
 
 #define BLOCK_POS_X_2_PX(x) (x * BLOCK_SIZE + BLOCK_CENTER)
 #define BLOCK_POS_X_2_PX_S(x) (x * BLOCK_SIZE + BLOCK_CENTER + 5)

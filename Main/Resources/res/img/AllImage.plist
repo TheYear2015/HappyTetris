@@ -7,95 +7,95 @@
 			<key>img/blue_t.png</key>
 			<dict>
 				<key>frame</key>
-				<string>{{0,0},{32,32}}</string>
+				<string>{{0,0},{37,37}}</string>
 				<key>offset</key>
 				<string>{0,0}</string>
 				<key>rotated</key>
 				<false />
 				<key>sourceSize</key>
-				<string>{32,32}</string>
+				<string>{37,37}</string>
 			</dict>
 			<key>img/c_t.png</key>
 			<dict>
 				<key>frame</key>
-				<string>{{0,32},{32,32}}</string>
+				<string>{{0,37},{37,37}}</string>
 				<key>offset</key>
 				<string>{0,0}</string>
 				<key>rotated</key>
 				<false />
 				<key>sourceSize</key>
-				<string>{32,32}</string>
+				<string>{37,37}</string>
 			</dict>
 			<key>img/g_t.png</key>
 			<dict>
 				<key>frame</key>
-				<string>{{0,64},{32,32}}</string>
+				<string>{{0,74},{37,37}}</string>
 				<key>offset</key>
 				<string>{0,0}</string>
 				<key>rotated</key>
 				<false />
 				<key>sourceSize</key>
-				<string>{32,32}</string>
+				<string>{37,37}</string>
 			</dict>
 			<key>img/o_t.png</key>
 			<dict>
 				<key>frame</key>
-				<string>{{0,96},{32,32}}</string>
+				<string>{{0,111},{37,37}}</string>
 				<key>offset</key>
 				<string>{0,0}</string>
 				<key>rotated</key>
 				<false />
 				<key>sourceSize</key>
-				<string>{32,32}</string>
+				<string>{37,37}</string>
 			</dict>
 			<key>img/p_t.png</key>
 			<dict>
 				<key>frame</key>
-				<string>{{0,128},{32,32}}</string>
+				<string>{{0,148},{37,37}}</string>
 				<key>offset</key>
 				<string>{0,0}</string>
 				<key>rotated</key>
 				<false />
 				<key>sourceSize</key>
-				<string>{32,32}</string>
+				<string>{37,37}</string>
 			</dict>
 			<key>img/red_t.png</key>
 			<dict>
 				<key>frame</key>
-				<string>{{0,160},{32,32}}</string>
+				<string>{{0,185},{37,37}}</string>
 				<key>offset</key>
 				<string>{0,0}</string>
 				<key>rotated</key>
 				<false />
 				<key>sourceSize</key>
-				<string>{32,32}</string>
+				<string>{37,37}</string>
 			</dict>
 			<key>img/y_t.png</key>
 			<dict>
 				<key>frame</key>
-				<string>{{0,192},{32,32}}</string>
+				<string>{{37,0},{37,37}}</string>
 				<key>offset</key>
 				<string>{0,0}</string>
 				<key>rotated</key>
 				<false />
 				<key>sourceSize</key>
-				<string>{32,32}</string>
+				<string>{37,37}</string>
 			</dict>
 			<key>img/bk1.png</key>
 			<dict>
 				<key>frame</key>
-				<string>{{0,224},{32,32}}</string>
+				<string>{{74,0},{37,37}}</string>
 				<key>offset</key>
 				<string>{0,0}</string>
 				<key>rotated</key>
 				<false />
 				<key>sourceSize</key>
-				<string>{32,32}</string>
+				<string>{37,37}</string>
 			</dict>
 			<key>img/gay_t.png</key>
 			<dict>
 				<key>frame</key>
-				<string>{{32,0},{32,32}}</string>
+				<string>{{0,222},{32,32}}</string>
 				<key>offset</key>
 				<string>{0,0}</string>
 				<key>rotated</key>
@@ -106,13 +106,13 @@
 			<key>img/black_t.png</key>
 			<dict>
 				<key>frame</key>
-				<string>{{64,0},{32,32}}</string>
+				<string>{{111,0},{37,37}}</string>
 				<key>offset</key>
 				<string>{0,0}</string>
 				<key>rotated</key>
 				<false />
 				<key>sourceSize</key>
-				<string>{32,32}</string>
+				<string>{37,37}</string>
 			</dict>
 		</dict>
 		<key>metadata</key>
@@ -124,12 +124,12 @@
 			<key>realTextureFileName</key>
 			<string>AllImage.png</string>
 			<key>size</key>
-			<string>{128,256}</string>
+			<string>{256,256}</string>
 		</dict>
 		<key>texture</key>
 		<dict>
 			<key>width</key>
-			<integer>128</integer>
+			<integer>256</integer>
 			<key>height</key>
 			<integer>256</integer>
 		</dict>

@@ -19,8 +19,8 @@
           <AbstractNodeData Name="Root" ActionTag="225417804" Tag="17" IconVisible="True" LeftMargin="19.9992" RightMargin="620.0007" TopMargin="875.0008" BottomMargin="84.9992" ctype="SingleNodeObjectData">
             <Size X="0.0000" Y="0.0000" />
             <Children>
-              <AbstractNodeData Name="BK" ActionTag="-1749843769" Alpha="230" Tag="31" IconVisible="False" RightMargin="-320.0000" TopMargin="-640.0000" Scale9Width="32" Scale9Height="32" ctype="ImageViewObjectData">
-                <Size X="320.0000" Y="640.0000" />
+              <AbstractNodeData Name="BK" ActionTag="-1749843769" Alpha="230" Tag="31" IconVisible="False" RightMargin="-370.0000" TopMargin="-740.0000" Scale9Width="32" Scale9Height="32" ctype="ImageViewObjectData">
+                <Size X="370.0000" Y="740.0000" />
                 <AnchorPoint />
                 <Position />
                 <Scale ScaleX="1.0000" ScaleY="1.0000" />
@@ -32,7 +32,7 @@
             </Children>
             <AnchorPoint />
             <Position X="19.9992" Y="84.9992" />
-            <Scale ScaleX="1.1500" ScaleY="1.1500" />
+            <Scale ScaleX="1.0000" ScaleY="1.0000" />
             <CColor A="255" R="255" G="255" B="255" />
             <PrePosition X="0.0312" Y="0.0885" />
             <PreSize X="0.0000" Y="0.0000" />
@@ -41,7 +41,7 @@
             <Size X="0.0000" Y="0.0000" />
             <AnchorPoint />
             <Position X="168.0010" Y="865.9999" />
-            <Scale ScaleX="1.1500" ScaleY="1.1500" />
+            <Scale ScaleX="1.0000" ScaleY="1.0000" />
             <CColor A="255" R="255" G="255" B="255" />
             <PrePosition X="0.2625" Y="0.9021" />
             <PreSize X="0.0000" Y="0.0000" />
@@ -50,7 +50,7 @@
             <Size X="0.0000" Y="0.0000" />
             <AnchorPoint />
             <Position X="328.9996" Y="872.0009" />
-            <Scale ScaleX="0.6000" ScaleY="0.6000" />
+            <Scale ScaleX="0.5000" ScaleY="0.5000" />
             <CColor A="255" R="255" G="255" B="255" />
             <PrePosition X="0.5141" Y="0.9083" />
             <PreSize X="0.0000" Y="0.0000" />
@@ -59,7 +59,7 @@
             <Size X="0.0000" Y="0.0000" />
             <AnchorPoint />
             <Position X="432.9994" Y="871.0009" />
-            <Scale ScaleX="0.6000" ScaleY="0.6000" />
+            <Scale ScaleX="0.5000" ScaleY="0.5000" />
             <CColor A="255" R="255" G="255" B="255" />
             <PrePosition X="0.6766" Y="0.9073" />
             <PreSize X="0.0000" Y="0.0000" />
@@ -68,7 +68,7 @@
             <Size X="0.0000" Y="0.0000" />
             <AnchorPoint />
             <Position X="39.0003" Y="866.0008" />
-            <Scale ScaleX="0.8500" ScaleY="0.8500" />
+            <Scale ScaleX="0.8000" ScaleY="0.8000" />
             <CColor A="255" R="255" G="255" B="255" />
             <PrePosition X="0.0609" Y="0.9021" />
             <PreSize X="0.0000" Y="0.0000" />
