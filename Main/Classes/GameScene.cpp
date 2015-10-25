@@ -21,25 +21,22 @@ void GameScene::OnSceneInited()
     }
 }
 
-cocos2d::Sprite* CreatBlockSprite(BlockType block)
+cocos2d::Sprite* CreatBlockSprite(BlockType block, int flag = 0)
 {
     int index = (int)block - (int)BlockType::IBlock;
     const std::array<std::string, 7> blockTag = { "img/red_t.png", "img/o_t.png", "img/blue_t.png", "img/p_t.png", "img/g_t.png", "img/y_t.png", "img/c_t.png" };
+	const std::array<std::string, 7> blockTag2 = { "img/red_t_1.png", "img/o_t_1.png", "img/blue_t_1.png", "img/p_t_1.png", "img/g_t_1.png", "img/y_t_1.png", "img/c_t_1.png" };
 
-    return cocos2d::Sprite::createWithSpriteFrameName(blockTag[index]);
+	return flag == 0 ? cocos2d::Sprite::createWithSpriteFrameName(blockTag[index]) : cocos2d::Sprite::createWithSpriteFrameName(blockTag2[index]);
 };
 
 std::array<cocos2d::Sprite*, 2> CreateBlockAndShadow (BlockType block, bool needShdow = true)
 {
     std::array<cocos2d::Sprite*, 2> rev;
-    auto sp = CreatBlockSprite(block);
+	auto sp = CreatBlockSprite(block, needShdow ? 0 : 1);
     sp->setLocalZOrder((int)block + 100);
     sp->setOpacity(255);
     rev[0] = sp;
-    if (!needShdow)
-    {
-        sp->setOpacity(100);
-    }
 
     rev[1] = nullptr;
     if(needShdow)
@@ -374,6 +371,7 @@ void PlayTetrisLayer::OnBlockMove(int x, int y)
     //刷新预览方块的位置
     auto pos = m_logic.GetPreviewFallBlockPos();
     m_previewFallBlock->SetPosition(pos.first, pos.second);
+	m_previewFallBlock->SetShow(m_fallBlock->GetPosY() - pos.second > 3);
 
 }
 
@@ -405,6 +403,7 @@ void PlayTetrisLayer::SetFallBlockDir(int dir, bool isToEnd)
     auto pos = m_logic.GetPreviewFallBlockPos();
     m_previewFallBlock->SetPosition(pos.first, pos.second);
 
+	m_previewFallBlock->SetShow(m_fallBlock->GetPosY() - pos.second > 3);
 }
 
 void PlayTetrisLayer::SetBlockOnPos(BlockType block, int x, int y)
@@ -700,6 +699,14 @@ void PlayTetrisLayer::FallBlockSprite::Begin()
 void PlayTetrisLayer::FallBlockSprite::SetScale(float scale)
 {
     m_scale = scale;
+}
+
+void PlayTetrisLayer::FallBlockSprite::SetShow(bool isShow)
+{
+	for (auto c : m_blockSprite)
+		for (auto s : c)
+			if (s)
+				s->setVisible(isShow);
 }
 
 PlayTetrisLayer::NextFallBlockSprite::NextFallBlockSprite(cocos2d::Node* parent)

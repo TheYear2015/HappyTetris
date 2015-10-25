@@ -114,6 +114,83 @@
 				<key>sourceSize</key>
 				<string>{37,37}</string>
 			</dict>
+			<key>img/blue_t_1.png</key>
+			<dict>
+				<key>frame</key>
+				<string>{{148,0},{37,37}}</string>
+				<key>offset</key>
+				<string>{0,0}</string>
+				<key>rotated</key>
+				<false />
+				<key>sourceSize</key>
+				<string>{37,37}</string>
+			</dict>
+			<key>img/c_t_1.png</key>
+			<dict>
+				<key>frame</key>
+				<string>{{185,0},{37,37}}</string>
+				<key>offset</key>
+				<string>{0,0}</string>
+				<key>rotated</key>
+				<false />
+				<key>sourceSize</key>
+				<string>{37,37}</string>
+			</dict>
+			<key>img/g_t_1.png</key>
+			<dict>
+				<key>frame</key>
+				<string>{{37,37},{37,37}}</string>
+				<key>offset</key>
+				<string>{0,0}</string>
+				<key>rotated</key>
+				<false />
+				<key>sourceSize</key>
+				<string>{37,37}</string>
+			</dict>
+			<key>img/o_t_1.png</key>
+			<dict>
+				<key>frame</key>
+				<string>{{37,74},{37,37}}</string>
+				<key>offset</key>
+				<string>{0,0}</string>
+				<key>rotated</key>
+				<false />
+				<key>sourceSize</key>
+				<string>{37,37}</string>
+			</dict>
+			<key>img/p_t_1.png</key>
+			<dict>
+				<key>frame</key>
+				<string>{{37,111},{37,37}}</string>
+				<key>offset</key>
+				<string>{0,0}</string>
+				<key>rotated</key>
+				<false />
+				<key>sourceSize</key>
+				<string>{37,37}</string>
+			</dict>
+			<key>img/red_t_1.png</key>
+			<dict>
+				<key>frame</key>
+				<string>{{37,148},{37,37}}</string>
+				<key>offset</key>
+				<string>{0,0}</string>
+				<key>rotated</key>
+				<false />
+				<key>sourceSize</key>
+				<string>{37,37}</string>
+			</dict>
+			<key>img/y_t_1.png</key>
+			<dict>
+				<key>frame</key>
+				<string>{{37,185},{37,37}}</string>
+				<key>offset</key>
+				<string>{0,0}</string>
+				<key>rotated</key>
+				<false />
+				<key>sourceSize</key>
+				<string>{37,37}</string>
+			</dict>
 		</dict>
 		<key>metadata</key>
 		<dict>

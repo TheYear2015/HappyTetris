@@ -131,6 +131,8 @@ private:
 
 		void SetPosition(int x, int y);
 
+		int GetPosY() const{ return m_y; };
+
 		//设置方块方向
 		void SetDir(int dir);
 
@@ -142,6 +144,8 @@ private:
 		void Begin();
 
 		void SetScale(float scale);
+
+		void SetShow(bool isShow);
 
 	private:
 		std::array<std::array<cocos2d::Sprite*, 2>, 4> m_blockSprite;

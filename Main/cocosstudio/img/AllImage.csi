@@ -12,6 +12,13 @@
       <FilePathData Path="img/bk1.png" />
       <FilePathData Path="img/gay_t.png" />
       <FilePathData Path="img/black_t.png" />
+      <FilePathData Path="img/blue_t_1.png" />
+      <FilePathData Path="img/c_t_1.png" />
+      <FilePathData Path="img/g_t_1.png" />
+      <FilePathData Path="img/o_t_1.png" />
+      <FilePathData Path="img/p_t_1.png" />
+      <FilePathData Path="img/red_t_1.png" />
+      <FilePathData Path="img/y_t_1.png" />
     </ImageFiles>
     <MaxSize Width="256" Height="256" />
   </Content>
