@@ -175,8 +175,27 @@ public:
 class PlayTetris
 {
 public:
+	struct Data
+	{
+		//状态 BlockPlayStatus::PlayEnd 表示游戏结束，后续数据不需要，其余的都是方块重新开始下落
+		BlockPlayStatus m_playStatus = BlockPlayStatus::PlayEnd;
+		//生成的种子
+		uint32_t m_generatorSeed;
+		//
+	};
+
+public:
 	PlayTetris();
 	~PlayTetris();
+
+public:
+	void SetData(const PlayTetris::Data& data);
+
+	PlayTetris::Data GetData() const;
+
+	void Pause();
+
+	void Resume();
 
 public:
 	void Frame(float delta);
@@ -324,6 +343,8 @@ private:
 
 	//下落速度等级区间
 	std::pair<int, int> m_fallSpeedLevelRang = { 1, 15 };
+
+	bool m_isPaused = false;
 
 	PlayTetrisObserver* m_observer = nullptr;
 

@@ -572,6 +572,8 @@ void PlayTetris::BeginCleanFullLines()
 
 void PlayTetris::Frame(float delta)
 {
+	if (m_isPaused)
+		return;
 
 	if (m_fallBlockStatus == BlockPlayStatus::Op
 		|| m_fallBlockStatus == BlockPlayStatus::BlockFallEnd
@@ -870,6 +872,16 @@ void PlayTetris::ResetFallBlock(BlockType block)
 bool PlayTetris::IsEnableOpFallBlock() const
 {
 	return m_fallBlockStatus == BlockPlayStatus::Op || m_fallBlockStatus == BlockPlayStatus::BlockFallEnd;
+}
+
+void PlayTetris::Pause()
+{
+	m_isPaused = true;
+}
+
+void PlayTetris::Resume()
+{
+	m_isPaused = false;
 }
 
 void MyRand::SRand(uint32_t s)
